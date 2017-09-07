@@ -15,6 +15,8 @@ import hibernate.HibernateUtil;
 import javax.swing.table.TableColumn;
 import org.hibernate.Query;
 import dao.DAO;
+import entidades.Endereco;
+import org.hibernate.HibernateException;
 
 public class ProdutosDAO {
 
@@ -155,6 +157,29 @@ public class ProdutosDAO {
 //                    break;
                 }
         }
+    }
+    
+    public Produtos consultarID(int id) {
+        List resultado = null;
+        Produtos s = null;
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+
+        try {
+
+            org.hibernate.Query q = sessao.createQuery("from Produtos where id = " + id);
+            resultado = q.list();
+
+            for (Object o : resultado) {
+                s = (Produtos) o;
+            }
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return s;
     }
 
 }

@@ -8,7 +8,10 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
+import dao.EnderecoDAO;
 import dao.PessoaDAO;
+import dao.ProdutosDAO;
+import entidades.Endereco;
 import entidades.Pessoas;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -320,7 +323,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
+
         controleAtualizacao();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -337,12 +340,12 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-         statusCampos(false);
-            btnCancelar.setText(templateTitulos.getBtnCancelar());
-            btnCancelar.setEnabled(false);
-            TratarCampos.limparCampos(jPanel1);
-            TratarCampos.setaBorda(jPanel1, false);
-            btnSalvar.setText(templateTitulos.getBtnNovo());
+        statusCampos(false);
+        btnCancelar.setText(templateTitulos.getBtnCancelar());
+        btnCancelar.setEnabled(false);
+        TratarCampos.limparCampos(jPanel1);
+        TratarCampos.setaBorda(jPanel1, false);
+        btnSalvar.setText(templateTitulos.getBtnNovo());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
@@ -356,6 +359,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdNome.setEnabled(status);
         tfdSobrenome.setEnabled(status);
     }
+
     private void controleAtualizacao() {
         switch (status) {
             case 0:
@@ -382,7 +386,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                     pes.setRg(tfdRg.getText());
                     pes.setTelefone(tfdTelefone.getText());
                     pes.setEnderecoId(tfdEndereco.getText());
-          
+
                     dao.salvar(pes);
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());

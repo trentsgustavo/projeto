@@ -8,23 +8,26 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
+import dao.EnderecoDAO;
 import dao.ProdutosDAO;
+import entidades.Endereco;
 import entidades.Produtos;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
 
 /**
  *
  * @author Tainá Fiegenbaum
  */
 public class IfrProduto extends javax.swing.JInternalFrame {
-
+    
     int codigo = 0;
     int status;
     ProdutosDAO pDAO;
     Produtos p;
-
+    
     public IfrProduto() {
         setTitle("Cadastro de Produtos");
         initComponents();
@@ -35,9 +38,9 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         new ProdutosDAO().popularTabela(tblProdutos, title);
         statusCampos(false);
         btnCancelar.setEnabled(false);
-
+        btnAlterar.setEnabled(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -45,12 +48,13 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         btnSair1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        abaManutencao = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfdNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         tfdPeso = new javax.swing.JTextField();
+        tfdId = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
@@ -63,6 +67,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -92,6 +97,8 @@ public class IfrProduto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("*Peso:");
 
+        tfdId.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -101,15 +108,19 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfdPeso, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                    .addComponent(tfdNome))
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tfdPeso, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                        .addComponent(tfdNome))
+                    .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(499, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(22, 22, 22)
+                .addComponent(tfdId)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfdNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -117,10 +128,10 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tfdPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Manutenção", jPanel1);
+        abaManutencao.addTab("Manutenção", jPanel1);
 
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,7 +220,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Consulta", jPanel2);
+        abaManutencao.addTab("Consulta", jPanel2);
 
         btnSalvar.setText("Salvar");
         btnSalvar.setMaximumSize(new java.awt.Dimension(90, 25));
@@ -241,6 +252,13 @@ public class IfrProduto extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,13 +267,15 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1)
+                        .addComponent(abaManutencao)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58))))
@@ -264,12 +284,13 @@ public class IfrProduto extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(abaManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterar))
                 .addGap(50, 50, 50))
         );
 
@@ -281,18 +302,6 @@ public class IfrProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        /**
-         * TratarCampos.trataObrigatorios(tfdNome);
-         * TratarCampos.trataObrigatorios(tfdPeso);
-         *
-         * if (TratarCampos.verificaVazios(jPanel1)) {
-         * System.out.println("aqui"); } else { DAO<Produtos> dao = new
-         * DAO<Produtos>(); Produtos pro = new Produtos();
-         * pro.setDescricao(tfdNome.getText());
-         * pro.setPeso(Double.parseDouble(tfdPeso.getText()));
-         * pro.setSituacao("a"); dao.salvar(pro); System.out.println("deu
-         * erro"); }
-         */
         controleAtualizacao();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -301,20 +310,34 @@ public class IfrProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
+        ProdutosDAO pd = new ProdutosDAO();
+        Produtos p = new Produtos();
+        DAO d = new DAO();
+        Object obj = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        String str = String.valueOf(obj);
+        p = pd.consultarID(Integer.parseInt(str));
+        d.excluir(p);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
+        ProdutosDAO pd = new ProdutosDAO();
+        Produtos p = new Produtos();
+        Object obj = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        String str = String.valueOf(obj);
+        p = pd.consultarID(Integer.parseInt(str));
+        tfdNome.setText(p.getDescricao());
+        tfdPeso.setText(p.getPeso() + "");
+        abaManutencao.setSelectedIndex(0);
+        btnAlterar.setEnabled(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-         statusCampos(false);
-            btnCancelar.setText(templateTitulos.getBtnCancelar());
-            btnCancelar.setEnabled(false);
-            TratarCampos.limparCampos(jPanel1);
-            TratarCampos.setaBorda(jPanel1, false);
-            btnSalvar.setText(templateTitulos.getBtnNovo());
+        statusCampos(false);
+        btnCancelar.setText(templateTitulos.getBtnCancelar());
+        btnCancelar.setEnabled(false);
+        TratarCampos.limparCampos(jPanel1);
+        TratarCampos.setaBorda(jPanel1, false);
+        btnSalvar.setText(templateTitulos.getBtnNovo());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
@@ -324,10 +347,15 @@ public class IfrProduto extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        controleAtualizacao();
+    }//GEN-LAST:event_btnAlterarActionPerformed
     private void statusCampos(boolean status) {
         tfdNome.setEnabled(status);
         tfdPeso.setEnabled(status);
     }
+    
     private void controleAtualizacao() {
         switch (status) {
             case 0:
@@ -338,20 +366,20 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                 TratarCampos.trataObrigatorios(tfdPeso);
                 status++;
                 tfdNome.requestFocus();
-
+                
                 break;
             case 1:
-
+                
                 if (TratarCampos.verificaVazios(jPanel1)) {
                     System.out.println("entrei");
                     statusCampos(true);
-
+                    
                     DAO<Produtos> dao = new DAO<Produtos>();
                     Produtos pro = new Produtos();
                     pro.setDescricao(tfdNome.getText());
                     pro.setPeso(Double.parseDouble(tfdPeso.getText()));
                     pro.setSituacao("a");
-                    dao.salvar(pro);
+                        dao.salvar(pro);
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);
@@ -365,9 +393,11 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                 break;
         }
     }
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane abaManutencao;
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
@@ -384,8 +414,8 @@ public class IfrProduto extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tblProdutos;
+    private javax.swing.JLabel tfdId;
     private javax.swing.JTextField tfdNome;
     private javax.swing.JTextField tfdPeso;
     private javax.swing.JTextField tfdPesquisar;
