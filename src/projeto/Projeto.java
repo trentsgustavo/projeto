@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package transports;
+package projeto;
 
+import telas.IfrLogin;
 import telas.JanelaPrincipal;
 
 /**
@@ -18,8 +19,11 @@ public class Projeto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       JanelaPrincipal frmPrinc = new JanelaPrincipal();
-        frmPrinc.setVisible(true);
+        
+        IfrLogin telaLogin = new IfrLogin();
+        telaLogin.setVisible(true);
+       //JanelaPrincipal frmPrinc = new JanelaPrincipal();
+        //frmPrinc.setVisible(true);
     }
     
 }
