@@ -52,6 +52,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jprodutos = new javax.swing.JMenuItem();
         jcaminhao = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -97,6 +98,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         lblIcone.setMaximumSize(new java.awt.Dimension(500, 300));
         lblIcone.setMinimumSize(new java.awt.Dimension(500, 300));
 
+        jDesktopPane1.setLayer(lblIcone, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -113,7 +116,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(99, Short.MAX_VALUE))
         );
-        jDesktopPane1.setLayer(lblIcone, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastros");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +167,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem4);
+
+        jUsuario.setText("Usuario");
+        jUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jUsuario);
 
         jMenuBar1.add(jMenu1);
 
@@ -320,6 +330,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         telaEndereco.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUsuarioActionPerformed
+        IfrUsuario telaUsuario = new IfrUsuario();
+        jDesktopPane1.add(telaUsuario);
+        telaUsuario.setVisible(true);
+    }//GEN-LAST:event_jUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -344,6 +360,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenuItem jUsuario;
     private javax.swing.JMenuItem jatendentes;
     private javax.swing.JMenuItem jcaminhao;
     private javax.swing.JMenuItem jclientes;

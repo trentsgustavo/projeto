@@ -8,10 +8,12 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
-import dao.EnderecoDAO;
+import dao.PessoaDAO;
 import dao.ProdutosDAO;
-import entidades.Endereco;
+import dao.UsuarioDAO;
+import entidades.Pessoas;
 import entidades.Produtos;
+import entidades.Usuarios;
 import hibernate.HibernateUtil;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -29,8 +31,8 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
     int codigo = 0;
     int status;
-    EnderecoDAO eDAO;
-    Endereco e;
+    UsuarioDAO uDAO;
+    Usuarios u;
 
     /**
      * Creates new form IfrFormaPagamento
@@ -42,7 +44,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         btnSalvar.setText(templateTitulos.getBtnNovo());
-        new EnderecoDAO().popularTabela(tblEndereco, title);
+        new UsuarioDAO().popularTabela(tblUsuario, title);
         statusCampos(false);
         btnCancelar.setEnabled(false);
         btnAlterar.setEnabled(false);
@@ -77,7 +79,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         btnAlterar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblEndereco = new javax.swing.JTable();
+        tblUsuario = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         tfdPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
@@ -211,7 +213,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
         abaManutencao.addTab("Manutenção", jPanel1);
 
-        tblEndereco.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -222,7 +224,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblEndereco);
+        jScrollPane2.setViewportView(tblUsuario);
 
         jLabel2.setText("Busca");
 
@@ -333,26 +335,25 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        EnderecoDAO ed = new EnderecoDAO();
-        Endereco e = new Endereco();
+        UsuarioDAO ed = new UsuarioDAO();
+        Usuarios e = new Usuarios();
         DAO d = new DAO();
-        Object obj = tblEndereco.getValueAt(tblEndereco.getSelectedRow(), 0);
+        Object obj = tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         e = ed.consultarID(Integer.parseInt(str));
         d.excluir(e);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        EnderecoDAO ed = new EnderecoDAO();
-        Endereco e = new Endereco();
+        UsuarioDAO ed = new UsuarioDAO();
+        Usuarios e = new Usuarios();
         DAO d = new DAO();
-        Object obj = tblEndereco.getValueAt(tblEndereco.getSelectedRow(), 0);
+        Object obj = tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         e = ed.consultarID(Integer.parseInt(str));
-        tfdUsuario.setText(e.getEstado());
-        tfdSenha.setText(e.getCidade());
-        tfdPessoa.setText(e.getRua());
-        tfdNumero.setText(e.getNumero() + "");
+        tfdUsuario.setText(e.getUsuario());
+        tfdSenha.setText(e.getSenha());
+        tfdPessoa.setText(e.getPessoasId().getNome());
         tfdId.setText(e.getId() + "");
         abaManutencao.setSelectedIndex(0);
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -377,10 +378,10 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         tfdUsuario.setEnabled(status);
         tfdSenha.setEnabled(status);
         tfdPessoa.setEnabled(status);
-        tfdNumero.setEnabled(status);
     }
-    
+
     private void controleAtualizacao() {
+        PessoaDAO pd = new PessoaDAO();
         switch (status) {
             case 0:
                 statusCampos(true);
@@ -389,24 +390,25 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 TratarCampos.trataObrigatorios(tfdUsuario);
                 TratarCampos.trataObrigatorios(tfdSenha);
                 TratarCampos.trataObrigatorios(tfdPessoa);
-                TratarCampos.trataObrigatorios(tfdNumero);
                 status++;
                 tfdUsuario.requestFocus();
-                
+
                 break;
             case 1:
-                
+
                 if (TratarCampos.verificaVazios(jPanel1)) {
                     System.out.println("entrei");
                     statusCampos(true);
                     
-                    DAO<Endereco> dao = new DAO<Endereco>();
-                    Endereco e = new Endereco();
-                    e.setEstado(tfdUsuario.getText());
-                    e.setCidade(tfdSenha.getText());
-                    e.setRua(tfdPessoa.getText());
-                    e.setNumero(Integer.parseInt(tfdNumero.getText()));
-                        dao.salvar(e);
+                    Pessoas p = new Pessoas();
+                    DAO<Usuarios> dao = new DAO<Usuarios>();
+                    Usuarios e = new Usuarios();
+                    e.setUsuario(tfdUsuario.getText());
+                    e.setSenha(tfdSenha.getText());
+                    p = pd.consultarID(Integer.parseInt(tfdPessoa.getText()));
+                    e.setPessoasId(p);
+                    e.setSituacao("a");
+                    dao.salvar(e);
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);
@@ -443,7 +445,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable tblEndereco;
+    private javax.swing.JTable tblUsuario;
     private javax.swing.JLabel tfdId;
     private javax.swing.JTextField tfdPesquisar;
     private javax.swing.JTextField tfdPessoa;

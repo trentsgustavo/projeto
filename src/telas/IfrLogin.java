@@ -53,7 +53,6 @@ public class IfrLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfdSenha = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        tfdId = new javax.swing.JTextField();
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -90,15 +89,13 @@ public class IfrLogin extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(210, 210, 210))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -142,8 +139,8 @@ public class IfrLogin extends javax.swing.JFrame {
         UsuarioDAO ud = new UsuarioDAO();
 
         u = ud.consultarLogin(tfdUsuario.getText());
-        System.out.println("TextField: " + tfdUsuario.getText() );
-        System.out.println("Objeto: "+u.getUsuario());
+        System.out.println("TextField: " + tfdUsuario.getText());
+        System.out.println("Objeto: " + u.getUsuario());
 
         if (u.getSenha().equals(tfdSenha.getText())) {
             JanelaPrincipal frmPrinc = new JanelaPrincipal();
@@ -178,9 +175,10 @@ public class IfrLogin extends javax.swing.JFrame {
 
                     u = ud.consultarLogin(tfdUsuario.getText());
 
-                    if (u.getSenha() == tfdSenha.getText()) {
+                    if (u.getSenha().equals(tfdSenha.getText())) {
                         JanelaPrincipal frmPrinc = new JanelaPrincipal();
                         frmPrinc.setVisible(true);
+                        this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos");
                     }
@@ -232,7 +230,6 @@ public class IfrLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField tfdId;
     private javax.swing.JTextField tfdSenha;
     private javax.swing.JTextField tfdUsuario;
     // End of variables declaration//GEN-END:variables

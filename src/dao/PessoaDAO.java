@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entidades.Endereco;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +13,7 @@ import org.hibernate.Session;
 import entidades.Pessoas;
 import hibernate.HibernateUtil;
 import javax.swing.table.TableColumn;
+import org.hibernate.HibernateException;
 
 public class PessoaDAO {
 
@@ -119,6 +121,29 @@ public class PessoaDAO {
 //                    break;
                 }
         }
+    }
+    
+    public Pessoas consultarID(int id) {
+        List resultado = null;
+        Pessoas s = null;
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+
+        try {
+
+            org.hibernate.Query q = sessao.createQuery("from Pessoas where id = " + id);
+            resultado = q.list();
+
+            for (Object o : resultado) {
+                s = (Pessoas) o;
+            }
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return s;
     }
 
 }
