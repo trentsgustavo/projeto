@@ -13,6 +13,7 @@ import dao.PessoaDAO;
 import dao.ProdutosDAO;
 import entidades.Endereco;
 import entidades.Pessoas;
+import entidades.Usuarios;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -136,7 +137,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                     .addComponent(tfdEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdRg, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +228,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                                 .addComponent(btnExcluir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 369, Short.MAX_VALUE))
+                        .addGap(0, 680, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -291,7 +292,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -358,6 +359,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     private void statusCampos(boolean status) {
         tfdNome.setEnabled(status);
         tfdSobrenome.setEnabled(status);
+        tfdCpf.setEnabled(status);
+        tfdEndereco.setEnabled(status);
+        tfdRg.setEnabled(status);
+        tfdTelefone.setEnabled(status);
     }
 
     private void controleAtualizacao() {
@@ -369,6 +374,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 btnCancelar.setEnabled(true);
                 TratarCampos.trataObrigatorios(tfdNome);
                 TratarCampos.trataObrigatorios(tfdSobrenome);
+                TratarCampos.trataObrigatorios(tfdCpf);
+                TratarCampos.trataObrigatorios(tfdRg);
+                TratarCampos.trataObrigatorios(tfdEndereco);
+                TratarCampos.trataObrigatorios(tfdTelefone);
                 status++;
                 tfdNome.requestFocus();
 
@@ -376,20 +385,18 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
             case 1:
 
                 if (TratarCampos.verificaVazios(jPanel1)) {
-                    System.out.println("entrei");
-                    statusCampos(true);
-
+                    Endereco p = new Endereco();
                     DAO<Pessoas> dao = new DAO<Pessoas>();
-                    Pessoas pes = new Pessoas();
-                    pes.setNome(tfdNome.getText());
-                    pes.setSobrenome(tfdSobrenome.getText());
-                    pes.setCpf(tfdCpf.getText());
-                    pes.setRg(tfdRg.getText());
-                    pes.setTelefone(tfdTelefone.getText());
-                    Endereco e = ed.consultarID(Integer.parseInt(tfdEndereco.getText()));
-                    pes.setEnderecoId(e);
-
-                    dao.salvar(pes);
+                    Pessoas e = new Pessoas();
+                    e.setNome(tfdNome.getText());
+                    e.setSobrenome(tfdSobrenome.getText());
+                    e.setCpf(tfdCpf.getText());
+                    e.setRg(tfdRg.getText());
+                    e.setTelefone(tfdTelefone.getText());
+                    p = ed.consultarID(Integer.parseInt(tfdEndereco.getText()));
+                    e.setEnderecoId(p);
+                    e.setSituacao("a");
+                    dao.salvar(e);
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);

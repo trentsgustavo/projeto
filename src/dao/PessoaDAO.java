@@ -49,8 +49,6 @@ public class PessoaDAO {
         cabecalho[5] = "Telefone";
         cabecalho[6] = "Situação";
         cabecalho[7] = "Id Endereço";
-        
-        
 
         // cria matriz de acordo com nº de registros da tabela
         List resultado = null;
@@ -66,6 +64,8 @@ public class PessoaDAO {
 
             for (Object o : resultado) {
                 Pessoas pes = (Pessoas) o;
+                EnderecoDAO pd = new EnderecoDAO();
+                Endereco p = pd.consultarID(pes.getEnderecoId().getId());
                 dadosTabela[lin][0] = pes.getId();
                 dadosTabela[lin][1] = pes.getNome();
                 dadosTabela[lin][2] = pes.getSobrenome();
@@ -73,8 +73,8 @@ public class PessoaDAO {
                 dadosTabela[lin][4] = pes.getRg();
                 dadosTabela[lin][5] = pes.getTelefone();
                 dadosTabela[lin][6] = pes.getSituacao();
-                dadosTabela[lin][7] = pes.getEnderecoId();
-                
+                dadosTabela[lin][7] = pes.getEnderecoId().getRua()+","+pes.getEnderecoId().getNumero()+"-"+pes.getEnderecoId().getCidade()+" "+pes.getEnderecoId().getEstado();
+
                 lin++;
             }
 
@@ -122,7 +122,7 @@ public class PessoaDAO {
                 }
         }
     }
-    
+
     public Pessoas consultarID(int id) {
         List resultado = null;
         Pessoas s = null;
