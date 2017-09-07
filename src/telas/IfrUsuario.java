@@ -38,7 +38,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
      * Creates new form IfrFormaPagamento
      */
     public IfrUsuario() {
-        setTitle("Cadastro de Endereco");
+        setTitle("Cadastro de Usuario");
         initComponents();
         this.setSize(800, 500);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

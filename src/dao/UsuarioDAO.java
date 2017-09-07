@@ -6,6 +6,7 @@
 package dao;
 
 import entidades.Endereco;
+import entidades.Pessoas;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -63,11 +64,14 @@ public class UsuarioDAO {
 
             for (Object o : resultado) {
                 Usuarios u = (Usuarios) o;
+                PessoaDAO pd = new PessoaDAO();
+                Pessoas p = pd.consultarID(u.getPessoasId().getId());
+                
                 dadosTabela[lin][0] = u.getId();
                 dadosTabela[lin][1] = u.getUsuario();
                 dadosTabela[lin][2] = u.getSenha();
                 dadosTabela[lin][3] = u.getSituacao();
-                dadosTabela[lin][4] = u.getPessoasId();
+                dadosTabela[lin][4] = u.getPessoasId().getNome()+" "+u.getPessoasId().getSobrenome();
                 
                 
                 lin++;
