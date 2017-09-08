@@ -39,6 +39,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         statusCampos(false);
         btnCancelar.setEnabled(false);
         btnAlterar.setEnabled(false);
+        tfdId.setVisible(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -322,13 +323,14 @@ public class IfrProduto extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         ProdutosDAO pd = new ProdutosDAO();
         Produtos p = new Produtos();
+        DAO d = new DAO();
         Object obj = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         p = pd.consultarID(Integer.parseInt(str));
+        tfdId.setText(p.getId()+"");
         tfdNome.setText(p.getDescricao());
-        tfdPeso.setText(p.getPeso() + "");
+        tfdPeso.setText(p.getPeso()+"");
         abaManutencao.setSelectedIndex(0);
-        btnAlterar.setEnabled(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -378,8 +380,13 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                     Produtos pro = new Produtos();
                     pro.setDescricao(tfdNome.getText());
                     pro.setPeso(Double.parseDouble(tfdPeso.getText()));
+                    pro.setId(Integer.parseInt(tfdId.getText()));
                     pro.setSituacao("a");
+                    if(pro.getId()==0){
                         dao.salvar(pro);
+                    }else{
+                        dao.atualizar(pro);
+                    }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);

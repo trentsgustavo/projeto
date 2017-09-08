@@ -46,6 +46,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         statusCampos(false);
         btnCancelar.setEnabled(false);
         btnAlterar.setEnabled(false);
+        tfdId.setVisible(false);
 
     }
 
@@ -354,7 +355,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         Object obj = tblEndereco.getValueAt(tblEndereco.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         e = ed.consultarID(Integer.parseInt(str));
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
+        if(confirma == JOptionPane.YES_OPTION){
         d.excluir(e);
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -425,7 +429,12 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                     e.setCidade(tfdCidade.getText());
                     e.setRua(tfdRua.getText());
                     e.setNumero(Integer.parseInt(tfdNumero.getText()));
+                    e.setId(Integer.parseInt(tfdId.getText()));
+                    if(e.getId()==0){
                         dao.salvar(e);
+                    }else{
+                        dao.atualizar(e);
+                    }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);

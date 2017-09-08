@@ -13,9 +13,11 @@ import dao.PessoaDAO;
 import dao.ProdutosDAO;
 import entidades.Endereco;
 import entidades.Pessoas;
+import entidades.Produtos;
 import entidades.Usuarios;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,7 +41,9 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         new PessoaDAO().popularTabela(tblPessoa, title);
         statusCampos(false);
         btnCancelar.setEnabled(false);
-
+        tfdId.setVisible(false);
+        btnCliente.setEnabled(false);
+        btnCliente.setIcon(new ImageIcon(getClass().getResource("/icons/lupa.jpg")));
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +53,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         btnSair1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        abaManutencao = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfdNome = new javax.swing.JTextField();
@@ -63,6 +67,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdTelefone = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tfdEndereco = new javax.swing.JTextField();
+        btnCliente = new javax.swing.JButton();
+        tfdId = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPessoa = new javax.swing.JTable();
@@ -112,6 +118,14 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
         jLabel7.setText("*Endereço:");
 
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteActionPerformed(evt);
+            }
+        });
+
+        tfdId.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -122,48 +136,59 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfdSobrenome, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                    .addComponent(tfdCpf)
-                    .addComponent(tfdNome))
-                .addGap(108, 108, 108)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfdEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfdRg, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(372, Short.MAX_VALUE))
+                    .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfdSobrenome, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(tfdCpf)
+                            .addComponent(tfdNome))
+                        .addGap(108, 108, 108)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tfdEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfdRg, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(336, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(tfdRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfdSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(tfdEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfdNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(tfdRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(tfdSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfdCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(tfdEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Manutenção", jPanel1);
+        abaManutencao.addTab("Manutenção", jPanel1);
 
         tblPessoa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -243,7 +268,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                     .addComponent(tfdPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
@@ -252,7 +277,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Consulta", jPanel2);
+        abaManutencao.addTab("Consulta", jPanel2);
 
         btnSalvar.setText("Salvar");
         btnSalvar.setMaximumSize(new java.awt.Dimension(90, 25));
@@ -292,7 +317,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
+                        .addComponent(abaManutencao, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -306,8 +331,8 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(abaManutencao, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,7 +347,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
-
+    public void pegaIdDlg(String codigo) {
+        tfdEndereco.setText(codigo);
+        System.out.println(codigo);
+    }
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         controleAtualizacao();
@@ -333,11 +361,37 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
+        PessoaDAO pes = new PessoaDAO();
+        Pessoas p = new Pessoas();
+        DAO d = new DAO();
+        Object obj = tblPessoa.getValueAt(tblPessoa.getSelectedRow(), 0);
+        String str = String.valueOf(obj);
+        p = pes.consultarID(Integer.parseInt(str));
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
+        if (confirma == JOptionPane.YES_OPTION) {
+            d.excluir(p);
+            JOptionPane.showMessageDialog(null, "Item excluído com sucesso!");
+            new ProdutosDAO().popularTabela(tblPessoa, title);
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
+        PessoaDAO pes = new PessoaDAO();
+        Pessoas p = new Pessoas();
+        DAO d = new DAO();
+        Object obj = tblPessoa.getValueAt(tblPessoa.getSelectedRow(), 0);
+        String str = String.valueOf(obj);
+        p = pes.consultarID(Integer.parseInt(str));
+        tfdId.setText(p.getId() + "");
+        tfdNome.setText(p.getNome());
+        tfdSobrenome.setText(p.getSobrenome());
+        tfdCpf.setText(p.getCpf());
+        tfdRg.setText(p.getRg());
+        tfdTelefone.setText(p.getTelefone());
+        tfdEndereco.setText(p.getEnderecoId().getId() + "");
+        abaManutencao.setSelectedIndex(0);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -356,6 +410,12 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
+        IfrPesquisaEndereco IfrPesquisaEndereco = new IfrPesquisaEndereco(null, true, this);
+        IfrPesquisaEndereco.setLocationRelativeTo(this);
+        IfrPesquisaEndereco.setVisible(true);
+    }//GEN-LAST:event_btnClienteActionPerformed
     private void statusCampos(boolean status) {
         tfdNome.setEnabled(status);
         tfdSobrenome.setEnabled(status);
@@ -366,6 +426,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     }
 
     private void controleAtualizacao() {
+        btnCliente.setEnabled(true);
         EnderecoDAO ed = new EnderecoDAO();
         switch (status) {
             case 0:
@@ -393,10 +454,15 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
                     e.setCpf(tfdCpf.getText());
                     e.setRg(tfdRg.getText());
                     e.setTelefone(tfdTelefone.getText());
+                    e.setId(Integer.parseInt(tfdId.getText()));
                     p = ed.consultarID(Integer.parseInt(tfdEndereco.getText()));
                     e.setEnderecoId(p);
                     e.setSituacao("a");
-                    dao.salvar(e);
+                    if (e.getId() == 0) {
+                        dao.salvar(e);
+                    } else {
+                        dao.atualizar(e);
+                    }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);
@@ -413,7 +479,9 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane abaManutencao;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
@@ -433,10 +501,10 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tblPessoa;
     private javax.swing.JTextField tfdCpf;
     private javax.swing.JTextField tfdEndereco;
+    private javax.swing.JLabel tfdId;
     private javax.swing.JTextField tfdNome;
     private javax.swing.JTextField tfdPesquisar;
     private javax.swing.JTextField tfdRg;

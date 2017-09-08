@@ -105,7 +105,7 @@
                               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnAlterar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="460" max="32767" attributes="0"/>
                               <Component id="btnSairEndereco" min="-2" pref="67" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -123,7 +123,9 @@
                                           <Component id="tfdSenha" max="32767" attributes="0"/>
                                           <Component id="tfdUsuario" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="152" pref="475" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnPessoa" min="-2" pref="44" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="tfdId" min="-2" pref="43" max="-2" attributes="0"/>
@@ -151,13 +153,16 @@
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfdPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfdPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btnPessoa" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       <Component id="tfdId" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="165" max="32767" attributes="0"/>
+                      <EmptySpace pref="169" max="32767" attributes="0"/>
                       <Component id="jSeparator3" min="-2" pref="11" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -231,6 +236,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alterar"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnPessoa">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPessoaActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -10,8 +10,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import entidades.Caminhao;
+import entidades.Produtos;
 import hibernate.HibernateUtil;
 import javax.swing.table.TableColumn;
+import org.hibernate.HibernateException;
 
 public class CaminhaoDAO {
 
@@ -33,6 +35,29 @@ public class CaminhaoDAO {
 
     }
 
+    public Caminhao consultarID(int id) {
+        List resultado = null;
+        Caminhao c = null;
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+
+        try {
+
+            org.hibernate.Query q = sessao.createQuery("from Produtos where id = " + id);
+            resultado = q.list();
+
+            for (Object o : resultado) {
+                c = (Caminhao) o;
+            }
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return c;
+    }
+
     public void popularTabela(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -46,8 +71,6 @@ public class CaminhaoDAO {
         cabecalho[4] = "Placa";
         cabecalho[5] = "Capacidade";
         cabecalho[6] = "Situação";
-        
-        
 
         // cria matriz de acordo com nº de registros da tabela
         List resultado = null;

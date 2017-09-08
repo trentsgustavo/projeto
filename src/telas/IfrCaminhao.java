@@ -9,7 +9,9 @@ import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
 import dao.CaminhaoDAO;
+import dao.ProdutosDAO;
 import entidades.Caminhao;
+import entidades.Produtos;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -323,7 +325,20 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
+        CaminhaoDAO pcam = new CaminhaoDAO();
+        Caminhao c = new Caminhao();
+        DAO d = new DAO();
+        Object obj = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        String str = String.valueOf(obj);
+        c = pcam.consultarID(Integer.parseInt(str));
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
+        if (confirma == JOptionPane.YES_OPTION) {
+            d.excluir(c);
+            JOptionPane.showMessageDialog(null, "Item excluído com sucesso!");
+            new ProdutosDAO().popularTabela(tblProdutos, title);
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

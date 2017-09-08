@@ -6,6 +6,7 @@
 package telas;
 
 import dao.EnderecoDAO;
+import dao.PessoaDAO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -13,27 +14,27 @@ import javax.swing.JOptionPane;
 /**
  * @author Tainá Fiegenbaum
  */
-public class IfrPesquisaEndereco extends javax.swing.JDialog {
+public class IfrPesquisaPessoa extends javax.swing.JDialog {
 
-    IfrPessoa pes;
+    IfrUsuario u;
 
     /**
      * Creates new form DlgLocalizacao
      *
      */
-    public IfrPesquisaEndereco(java.awt.Frame parent, boolean modal) {
+    public IfrPesquisaPessoa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public IfrPesquisaEndereco(java.awt.Frame parent, boolean modal, IfrPessoa e) {
+    public IfrPesquisaPessoa(java.awt.Frame parent, boolean modal, IfrUsuario user) {
         initComponents();
-        this.pes = e;
+        this.u = user;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        EnderecoDAO end;
-        end = new EnderecoDAO();
-        end.popularTabela(tblCidade, "");
+        PessoaDAO p;
+        p = new PessoaDAO();
+        p.popularTabela(tblPessoa, "");
     }
 
     /**
@@ -47,16 +48,16 @@ public class IfrPesquisaEndereco extends javax.swing.JDialog {
 
         lblSelecionarLocalizacao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCidade = new javax.swing.JTable();
+        tblPessoa = new javax.swing.JTable();
         tbnOk = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pesquisar Cidade");
 
-        lblSelecionarLocalizacao.setText("Selecione a cidade:");
+        lblSelecionarLocalizacao.setText("Selecione a Pessoa:");
 
-        tblCidade.setModel(new javax.swing.table.DefaultTableModel(
+        tblPessoa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -75,7 +76,7 @@ public class IfrPesquisaEndereco extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblCidade);
+        jScrollPane1.setViewportView(tblPessoa);
 
         tbnOk.setText("Ok");
         tbnOk.addActionListener(new java.awt.event.ActionListener() {
@@ -129,11 +130,11 @@ public class IfrPesquisaEndereco extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void tbnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnOkActionPerformed
-        if (tblCidade.getSelectedRowCount() == 1) {
-            pes.pegaIdDlg(String.valueOf(tblCidade.getValueAt(tblCidade.getSelectedRow(), 0)));
+        if (tblPessoa.getSelectedRowCount() == 1) {
+            u.pegaIdDlg(String.valueOf(tblPessoa.getValueAt(tblPessoa.getSelectedRow(), 0)));
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Você deve primeiro selecionar um endereço!");
+            JOptionPane.showMessageDialog(this, "Você deve primeiro selecionar uma Pessoa!");
         }
     }//GEN-LAST:event_tbnOkActionPerformed
 
@@ -154,14 +155,22 @@ public class IfrPesquisaEndereco extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaEndereco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -174,7 +183,7 @@ public class IfrPesquisaEndereco extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                IfrPesquisaEndereco dialog = new IfrPesquisaEndereco(new javax.swing.JFrame(), true);
+                IfrPesquisaPessoa dialog = new IfrPesquisaPessoa(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -190,7 +199,7 @@ public class IfrPesquisaEndereco extends javax.swing.JDialog {
     private javax.swing.JButton btnFechar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSelecionarLocalizacao;
-    private javax.swing.JTable tblCidade;
+    private javax.swing.JTable tblPessoa;
     private javax.swing.JButton tbnOk;
     // End of variables declaration//GEN-END:variables
 }
