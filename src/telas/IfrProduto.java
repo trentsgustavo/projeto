@@ -331,6 +331,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         tfdNome.setText(p.getDescricao());
         tfdPeso.setText(p.getPeso()+"");
         abaManutencao.setSelectedIndex(0);
+        btnSalvar.setText(templateTitulos.getBtnAtualizar());
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

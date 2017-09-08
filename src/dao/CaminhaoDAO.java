@@ -25,6 +25,7 @@ public class CaminhaoDAO {
             sessao.beginTransaction();
             org.hibernate.Query q = sessao.createQuery("from Caminhao");
             resultado = q.list();
+            System.out.println(resultado);
             sessao.close();
             return resultado;
         } catch (Exception he) {
@@ -34,8 +35,7 @@ public class CaminhaoDAO {
         return resultado;
 
     }
-
-    public Caminhao consultarID(int id) {
+public Caminhao consultarID(int id) {
         List resultado = null;
         Caminhao c = null;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
@@ -56,8 +56,7 @@ public class CaminhaoDAO {
             sessao.close();
         }
         return c;
-    }
-
+}
     public void popularTabela(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -71,6 +70,8 @@ public class CaminhaoDAO {
         cabecalho[4] = "Placa";
         cabecalho[5] = "Capacidade";
         cabecalho[6] = "Situação";
+        
+        
 
         // cria matriz de acordo com nº de registros da tabela
         List resultado = null;

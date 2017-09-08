@@ -9,8 +9,10 @@ import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
 import dao.CaminhaoDAO;
+import dao.EnderecoDAO;
 import dao.ProdutosDAO;
 import entidades.Caminhao;
+import entidades.Endereco;
 import entidades.Produtos;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -34,9 +36,10 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         btnSalvar.setText(templateTitulos.getBtnNovo());
-        new CaminhaoDAO().popularTabela(tblProdutos, title);
+        new CaminhaoDAO().popularTabela(tblCaminhao, title);
         statusCampos(false);
         btnCancelar.setEnabled(false);
+        tfdId.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -46,10 +49,10 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         btnSair1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        abaManutencao = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jcbMarca = new javax.swing.JComboBox<>();
+        tfdMarca = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         tfdAno = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -58,9 +61,10 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         tfdPlaca = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tfdCapacidade = new javax.swing.JTextField();
+        tfdId = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblProdutos = new javax.swing.JTable();
+        tblCaminhao = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         tfdPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
@@ -97,7 +101,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
 
         jLabel1.setText("*Marca:");
 
-        jcbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Volvo", "Mercedes", "Scania", "Iveco" }));
+        tfdMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Volvo", "Mercedes", "Scania", "Iveco" }));
 
         jLabel4.setText("*Ano: ");
 
@@ -106,6 +110,8 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         jLabel6.setText("*Placa: ");
 
         jLabel7.setText("*Capacidade: ");
+
+        tfdId.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,21 +132,24 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
                         .addComponent(tfdPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jcbMarca, 0, 224, Short.MAX_VALUE)
+                            .addComponent(tfdMarca, 0, 224, Short.MAX_VALUE)
                             .addComponent(tfdAno))
                         .addGap(98, 98, 98)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(tfdCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfdCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(19, 19, 19)
+                .addComponent(tfdId)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jcbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
@@ -156,9 +165,9 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
                 .addContainerGap(152, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Manutenção", jPanel1);
+        abaManutencao.addTab("Manutenção", jPanel1);
 
-        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tblCaminhao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -169,7 +178,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblProdutos);
+        jScrollPane2.setViewportView(tblCaminhao);
 
         jLabel2.setText("Busca");
 
@@ -245,7 +254,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Consulta", jPanel2);
+        abaManutencao.addTab("Consulta", jPanel2);
 
         btnSalvar.setText("Salvar");
         btnSalvar.setMaximumSize(new java.awt.Dimension(90, 25));
@@ -285,7 +294,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1)
+                        .addComponent(abaManutencao)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -300,7 +309,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(abaManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,21 +337,33 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         CaminhaoDAO pcam = new CaminhaoDAO();
         Caminhao c = new Caminhao();
         DAO d = new DAO();
-        Object obj = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        Object obj = tblCaminhao.getValueAt(tblCaminhao.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         c = pcam.consultarID(Integer.parseInt(str));
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
         if (confirma == JOptionPane.YES_OPTION) {
             d.excluir(c);
             JOptionPane.showMessageDialog(null, "Item excluído com sucesso!");
-            new ProdutosDAO().popularTabela(tblProdutos, title);
+            new ProdutosDAO().popularTabela(tblCaminhao, title);
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
+        CaminhaoDAO cd = new CaminhaoDAO();
+        Caminhao c = new Caminhao();
+        DAO d = new DAO();
+        Object obj = tblCaminhao.getValueAt(tblCaminhao.getSelectedRow(), 0);
+        String str = String.valueOf(obj);
+        c = cd.consultarID(Integer.parseInt(str));
+        tfdMarca.setSelectedItem(c.getMarca());
+        tfdAno.setText(c.getAno()+"");
+        tfdCarga.setText(c.getCarga()+"");
+        tfdPlaca.setText(c.getPlaca());
+        tfdCapacidade.setText(c.getCapacidade()+"");
+        abaManutencao.setSelectedIndex(0);
+        btnSalvar.setText(templateTitulos.getBtnAtualizar());
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -362,7 +383,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     private void statusCampos(boolean status) {
-        jcbMarca.setEnabled(status);
+        tfdMarca.setEnabled(status);
         tfdAno.setEnabled(status);
         tfdCarga.setEnabled(status);
         tfdPlaca.setEnabled(status);
@@ -379,9 +400,9 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
                 TratarCampos.trataObrigatorios(tfdCarga);
                 TratarCampos.trataObrigatorios(tfdPlaca);
                 TratarCampos.trataObrigatorios(tfdCapacidade);
-                
+
                 status++;
-                jcbMarca.requestFocus();
+                tfdMarca.requestFocus();
 
                 break;
             case 1:
@@ -392,18 +413,23 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
 
                     DAO<Caminhao> dao = new DAO<Caminhao>();
                     Caminhao cam = new Caminhao();
-                    cam.setMarca((String)jcbMarca.getSelectedItem());
-                    System.out.println((String)jcbMarca.getSelectedItem());
+                    cam.setId(Integer.parseInt(tfdId.getText()));
+                    cam.setMarca((String) tfdMarca.getSelectedItem());
+                    System.out.println((String) tfdMarca.getSelectedItem());
                     cam.setAno(tfdAno.getText());
                     cam.setCarga(Double.parseDouble(tfdCarga.getText()));
                     cam.setPlaca(tfdPlaca.getText());
                     cam.setCapacidade(Double.parseDouble(tfdCapacidade.getText()));
                     cam.setSituacao("a");
-                    dao.salvar(cam);
+                    if(cam.getId()==0){
+                        dao.salvar(cam);
+                    }else{
+                        dao.atualizar(cam);
+                    }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);
-                    jcbMarca.setSelectedItem("Selecione");
+                    tfdMarca.setSelectedItem("Selecione");
                     btnCancelar.setEnabled(false);
                     btnSalvar.setText(templateTitulos.getBtnNovo());
                     statusCampos(false);
@@ -417,6 +443,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane abaManutencao;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
@@ -436,12 +463,12 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JComboBox<String> jcbMarca;
-    private javax.swing.JTable tblProdutos;
+    private javax.swing.JTable tblCaminhao;
     private javax.swing.JTextField tfdAno;
     private javax.swing.JTextField tfdCapacidade;
     private javax.swing.JTextField tfdCarga;
+    private javax.swing.JLabel tfdId;
+    private javax.swing.JComboBox<String> tfdMarca;
     private javax.swing.JTextField tfdPesquisar;
     private javax.swing.JTextField tfdPlaca;
     // End of variables declaration//GEN-END:variables

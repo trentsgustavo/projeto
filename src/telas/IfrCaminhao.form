@@ -61,7 +61,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                      <Component id="abaManutencao" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -81,7 +81,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="13" max="32767" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="333" max="-2" attributes="0"/>
+              <Component id="abaManutencao" min="-2" pref="333" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -94,7 +94,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="abaManutencao">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -132,7 +132,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jcbMarca" pref="224" max="32767" attributes="0"/>
+                                  <Component id="tfdMarca" pref="224" max="32767" attributes="0"/>
                                   <Component id="tfdAno" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
@@ -140,6 +140,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="tfdCapacidade" min="-2" pref="222" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="tfdId" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="69" max="32767" attributes="0"/>
                   </Group>
@@ -148,10 +149,12 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Component id="tfdId" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jcbMarca" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfdMarca" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfdPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -178,7 +181,7 @@
                 <Property name="text" type="java.lang.String" value="*Marca:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jcbMarca">
+            <Component class="javax.swing.JComboBox" name="tfdMarca">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
@@ -221,6 +224,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfdCapacidade">
+            </Component>
+            <Component class="javax.swing.JLabel" name="tfdId">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -296,7 +304,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tblProdutos">
+                <Component class="javax.swing.JTable" name="tblCaminhao">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">

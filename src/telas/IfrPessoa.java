@@ -392,6 +392,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdTelefone.setText(p.getTelefone());
         tfdEndereco.setText(p.getEnderecoId().getId() + "");
         abaManutencao.setSelectedIndex(0);
+        btnSalvar.setText(templateTitulos.getBtnAtualizar());
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
