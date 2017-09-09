@@ -140,6 +140,7 @@ public class IfrLogin extends javax.swing.JFrame {
         if (u.getSenha().equals(tfdSenha.getText())) {
             JanelaPrincipal frmPrinc = new JanelaPrincipal();
             frmPrinc.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos");
         }
