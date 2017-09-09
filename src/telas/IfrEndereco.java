@@ -358,6 +358,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
         if(confirma == JOptionPane.YES_OPTION){
         d.excluir(e);
+        new EnderecoDAO().popularTabela(tblEndereco, title);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -375,6 +376,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         tfdId.setText(e.getId() + "");
         abaManutencao.setSelectedIndex(0);
         btnSalvar.setText(templateTitulos.getBtnAtualizar());
+        new EnderecoDAO().popularTabela(tblEndereco, title);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -433,6 +435,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                     e.setId(Integer.parseInt(tfdId.getText()));
                     if(e.getId()==0){
                         dao.salvar(e);
+                        new EnderecoDAO().popularTabela(tblEndereco, title);
                     }else{
                         dao.atualizar(e);
                     }
