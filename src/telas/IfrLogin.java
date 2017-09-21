@@ -155,13 +155,22 @@ public class IfrLogin extends javax.swing.JFrame {
         System.out.println("Objeto: " + u.getUsuario());
 
         if (u.getSenha().equals(tfdSenha.getText())) {
-            JanelaPrincipal frmPrinc = new JanelaPrincipal();
-            frmPrinc.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos"); 
+            if (u.getFuncoesId().getId() == 1) {
+                JanelaPrincipal frmPrinc = new JanelaPrincipal();
+                frmPrinc.setVisible(true);
+                this.dispose();
+            } else if (u.getFuncoesId().getId() == 2) {
+                JanelaAtendente frmAtend = new JanelaAtendente();
+                frmAtend.setVisible(true);
+                this.dispose();
+            } else if (u.getFuncoesId().getId() == 3) {
+                JanelaCaminhoneiros frmCam = new JanelaCaminhoneiros();
+                frmCam.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos");
+            }
         }
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

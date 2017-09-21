@@ -48,11 +48,6 @@ public class JanelaAtendente extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        menuRelatorios = new javax.swing.JMenu();
-        ListCadastroPromocoes = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        listagem_produtos = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         menuSistema = new javax.swing.JMenu();
         menuItemSair = new javax.swing.JMenuItem();
 
@@ -129,42 +124,6 @@ public class JanelaAtendente extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        menuRelatorios.setText("Relatórios");
-
-        ListCadastroPromocoes.setText("Listagem - Promoções");
-        ListCadastroPromocoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ListCadastroPromocoesActionPerformed(evt);
-            }
-        });
-        menuRelatorios.add(ListCadastroPromocoes);
-
-        jMenuItem3.setText("Relatório - Promoções - por nome");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        menuRelatorios.add(jMenuItem3);
-
-        listagem_produtos.setText("Listagem - Produtos");
-        listagem_produtos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listagem_produtosActionPerformed(evt);
-            }
-        });
-        menuRelatorios.add(listagem_produtos);
-
-        jMenuItem1.setText("Relatório - Produtos - por descrição");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        menuRelatorios.add(jMenuItem1);
-
-        jMenuBar1.add(menuRelatorios);
-
         menuSistema.setText("Sistema");
 
         menuItemSair.setText("Sair");
@@ -210,22 +169,6 @@ public class JanelaAtendente extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_menuItemSairActionPerformed
 
-    private void ListCadastroPromocoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListCadastroPromocoesActionPerformed
-
-    }//GEN-LAST:event_ListCadastroPromocoesActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void listagem_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagem_produtosActionPerformed
-
-    }//GEN-LAST:event_listagem_produtosActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
 
     }//GEN-LAST:event_jMenuItem5ActionPerformed
@@ -235,7 +178,6 @@ public class JanelaAtendente extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem ListCadastroPromocoes;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
@@ -244,18 +186,14 @@ public class JanelaAtendente extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblIcone;
-    private javax.swing.JMenuItem listagem_produtos;
     private javax.swing.JMenuItem menuItemSair;
-    private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenu menuSistema;
     // End of variables declaration//GEN-END:variables
 }
