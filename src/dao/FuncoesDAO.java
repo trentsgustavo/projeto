@@ -5,8 +5,7 @@
  */
 package dao;
 
-import entidades.Endereco;
-import entidades.Pessoas;
+import entidades.Funcoes;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +15,7 @@ import hibernate.HibernateUtil;
 import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 
-public class UsuarioDAO {
+public class FuncoesDAO {
 
     public List<Object> consultarTodos() {
         List resultado = null;
@@ -24,7 +23,7 @@ public class UsuarioDAO {
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
-            org.hibernate.Query q = sessao.createQuery("from Usuarios");
+            org.hibernate.Query q = sessao.createQuery("from Funcoes");
             resultado = q.list();
             sessao.close();
             return resultado;
@@ -35,44 +34,16 @@ public class UsuarioDAO {
         return resultado;
 
     }
-public Object validaUser(Object o) {
-        Usuarios resultado = null;
-        Usuarios us = new Usuarios();
-        us = (Usuarios) o;
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        sessao.beginTransaction();
-        try {
-            //executa a consulta
-            org.hibernate.Query q = sessao.createQuery(
-                    "from Usuarios where situacao = 'a' and usuario = "+us.getUsuario()+" and u.senha = "+us.getSenha());
-            System.out.println(us.getUsuario());
-            resultado =  (Usuarios) q.list().iterator().next();
-            System.out.println(resultado.getUsuario());
-            sessao.close();
-            if (resultado != null) {
-                return resultado;
-            }
-        } catch (Exception he) {
-            System.out.println("deu erro");
-            //he.printStackTrace();
-            return null;
-        }
-        return null;
-    }
+
     public void popularTabela(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[6];
+        Object[] cabecalho = new Object[3];
         cabecalho[0] = "Id";
-        cabecalho[1] = "Id Pessoa";
-        cabecalho[2] = "Id Funcao";
-        cabecalho[3] = "Usuario";
-        cabecalho[4] = "Senha";
-        cabecalho[5] = "Situação";
-        
-        
+        cabecalho[1] = "Descrição";
+        cabecalho[2] = "Situação";
 
         // cria matriz de acordo com nº de registros da tabela
         List resultado = null;
@@ -80,24 +51,17 @@ public Object validaUser(Object o) {
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
-            org.hibernate.Query q = sessao.createQuery("from Usuarios");
+            org.hibernate.Query q = sessao.createQuery("from Funcoes");
             resultado = q.list();
             System.out.println("tamanho:" + resultado.size());
 
-            dadosTabela = new Object[resultado.size()][6];
+            dadosTabela = new Object[resultado.size()][3];
 
             for (Object o : resultado) {
-                Usuarios u = (Usuarios) o;
-                PessoaDAO pd = new PessoaDAO();
-                Pessoas p = pd.consultarID(u.getPessoasId().getId());
-                
-                dadosTabela[lin][0] = u.getId();
-                dadosTabela[lin][1] = u.getPessoasId().getNome()+" "+u.getPessoasId().getSobrenome();
-                dadosTabela[lin][2] = u.getFuncoesId().getDescricao();
-                dadosTabela[lin][3] = u.getUsuario();
-                dadosTabela[lin][4] = u.getSenha();
-                dadosTabela[lin][5] = u.getSituacao();
-                
+                Funcoes f = (Funcoes) o;
+                dadosTabela[lin][0] = f.getId();
+                dadosTabela[lin][1] = f.getDescricao();
+                dadosTabela[lin][3] = f.getSituacao();
                 lin++;
             }
 
@@ -145,44 +109,20 @@ public Object validaUser(Object o) {
                 }
         }
     }
-    
-    public Usuarios consultarID(int id) {
+
+    public Funcoes consultarID(int id) {
         List resultado = null;
-        Usuarios s = null;
+        Funcoes s = null;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
 
         try {
 
-            org.hibernate.Query q = sessao.createQuery("from Usuarios where id = " + id);
+            org.hibernate.Query q = sessao.createQuery("from Funcoes where id = " + id);
             resultado = q.list();
 
             for (Object o : resultado) {
-                s = (Usuarios) o;
-            }
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            sessao.close();
-        }
-        return s;
-    }
-    
-    public Usuarios consultarLogin(String user) {
-        List resultado = null;
-        Usuarios s = null;
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        sessao.beginTransaction();
-
-        try {
-
-            org.hibernate.Query q = sessao.createQuery("from Usuarios where usuario = '" + user +"'");
-            resultado = q.list();
-            System.out.println(resultado);
-
-            for (Object o : resultado) {
-                s = (Usuarios) o;
+                s = (Funcoes) o;
             }
 
         } catch (HibernateException he) {

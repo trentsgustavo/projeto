@@ -8,21 +8,16 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
+import dao.FuncoesDAO;
 import dao.PessoaDAO;
-import dao.ProdutosDAO;
 import dao.UsuarioDAO;
+import entidades.Funcoes;
 import entidades.Pessoas;
-import entidades.Produtos;
 import entidades.Usuarios;
-import hibernate.HibernateUtil;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.math.BigDecimal;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -81,6 +76,9 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         tfdId = new javax.swing.JLabel();
         btnAlterar = new javax.swing.JButton();
         btnPessoa = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        tdfFuncao = new javax.swing.JTextField();
+        btnFuncao = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblUsuario = new javax.swing.JTable();
@@ -110,7 +108,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         });
 
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        setTitle("Cadastro - Produtos");
+        setTitle("Cadastro de Usuários");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 400));
@@ -158,6 +156,14 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setText("* Função:");
+
+        btnFuncao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFuncaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,27 +177,30 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                         .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btnAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 450, Short.MAX_VALUE)
                         .addComponent(btnSairEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel3)))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfdPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                                    .addComponent(tfdSenha)
-                                    .addComponent(tfdUsuario))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(tdfFuncao, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfdPessoa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                                    .addComponent(tfdSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfdUsuario, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jSeparator3)
         );
@@ -207,14 +216,21 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(tfdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(tfdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(tdfFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(tfdId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -395,6 +411,12 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         searchPessoa.setVisible(true);
     }//GEN-LAST:event_btnPessoaActionPerformed
 
+    private void btnFuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncaoActionPerformed
+        IfrPesquisaFuncao pesqfun = new IfrPesquisaFuncao(null, true, this);
+        pesqfun.setLocationRelativeTo(this);
+        pesqfun.setVisible(true);
+    }//GEN-LAST:event_btnFuncaoActionPerformed
+
     private void statusCampos(boolean status) {
         tfdUsuario.setEnabled(status);
         tfdSenha.setEnabled(status);
@@ -404,6 +426,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private void controleAtualizacao() {
         btnPessoa.setEnabled(true);
         PessoaDAO pd = new PessoaDAO();
+        FuncoesDAO fd = new FuncoesDAO();
         switch (status) {
             case 0:
                 statusCampos(true);
@@ -423,12 +446,16 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     statusCampos(true);
 
                     Pessoas p = new Pessoas();
+                    Funcoes f =new Funcoes();
                     DAO<Usuarios> dao = new DAO<Usuarios>();
                     Usuarios e = new Usuarios();
                     e.setUsuario(tfdUsuario.getText());
-                    e.setSenha(tfdSenha.getText());
+                    e.setSenha( tfdSenha.getText());
+                    //e.setSenha("MD5 ('" + tfdSenha.getText()+ "'");
                     p = pd.consultarID(Integer.parseInt(tfdPessoa.getText()));
                     e.setPessoasId(p);
+                    f = fd.consultarID(Integer.parseInt(tdfFuncao.getText()));
+                    e.setFuncoesId(f);
                     e.setSituacao("a");
                     e.setId(Integer.parseInt(tfdId.getText()));
                     if (e.getId() == 0) {
@@ -454,6 +481,10 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         tfdPessoa.setText(codigo);
         System.out.println(codigo);
     }
+    public void pegaIdDlg2(String codigo) {
+        tdfFuncao.setText(codigo);
+        System.out.println(codigo);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -462,6 +493,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnFuncao;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnPessoa;
     private javax.swing.JButton btnSair1;
@@ -472,6 +504,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -479,6 +512,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable tblUsuario;
+    private javax.swing.JTextField tdfFuncao;
     private javax.swing.JLabel tfdId;
     private javax.swing.JTextField tfdPesquisar;
     private javax.swing.JTextField tfdPessoa;

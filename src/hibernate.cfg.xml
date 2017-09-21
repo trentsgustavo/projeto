@@ -19,5 +19,6 @@
     <mapping class="entidades.Carga"/>
     <mapping class="entidades.Usuarios"/>
     <mapping class="entidades.Telas"/>
+    <mapping class="entidades.Funcoes"/>
   </session-factory>
 </hibernate-configuration>
