@@ -6,9 +6,7 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Permissoes.findByPermissaobtnedicao", query = "SELECT p FROM Permissoes p WHERE p.permissaobtnedicao = :permissaobtnedicao"),
     @NamedQuery(name = "Permissoes.findByPermissaobtnexclusao", query = "SELECT p FROM Permissoes p WHERE p.permissaobtnexclusao = :permissaobtnexclusao"),
     @NamedQuery(name = "Permissoes.findByPermissaoconsulta", query = "SELECT p FROM Permissoes p WHERE p.permissaoconsulta = :permissaoconsulta"),
-    @NamedQuery(name = "Permissoes.findByPermissoesativas", query = "SELECT p FROM Permissoes p WHERE p.permissoesativas = :permissoesativas")})
+    @NamedQuery(name = "Permissoes.findBySituacao", query = "SELECT p FROM Permissoes p WHERE p.situacao = :situacao")})
 public class Permissoes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,27 +46,31 @@ public class Permissoes implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @Column(name = "permissaovisibilidadetela")
-    private String permissaovisibilidadetela;
+    private Boolean permissaovisibilidadetela;
     @Column(name = "permissaoedicaotela")
-    private String permissaoedicaotela;
+    private Boolean permissaoedicaotela;
     @Column(name = "permissaobtninclusao")
-    private String permissaobtninclusao;
+    private Boolean permissaobtninclusao;
     @Column(name = "permissaobtnedicao")
-    private String permissaobtnedicao;
+    private Boolean permissaobtnedicao;
     @Column(name = "permissaobtnexclusao")
-    private String permissaobtnexclusao;
+    private Boolean permissaobtnexclusao;
     @Column(name = "permissaoconsulta")
-    private String permissaoconsulta;
-    @Column(name = "permissoesativas")
-    private String permissoesativas;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "permissoesId")
-    private Collection<TelasPermissoes> telasPermissoesCollection;
+    private Boolean permissaoconsulta;
+    @Basic(optional = false)
+    @Column(name = "situacao")
+    private String situacao;
 
     public Permissoes() {
     }
 
     public Permissoes(Integer id) {
         this.id = id;
+    }
+
+    public Permissoes(Integer id, String situacao) {
+        this.id = id;
+        this.situacao = situacao;
     }
 
     public Integer getId() {
@@ -89,69 +89,60 @@ public class Permissoes implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getPermissaovisibilidadetela() {
+    public Boolean getPermissaovisibilidadetela() {
         return permissaovisibilidadetela;
     }
 
-    public void setPermissaovisibilidadetela(String permissaovisibilidadetela) {
+    public void setPermissaovisibilidadetela(Boolean permissaovisibilidadetela) {
         this.permissaovisibilidadetela = permissaovisibilidadetela;
     }
 
-    public String getPermissaoedicaotela() {
+    public Boolean getPermissaoedicaotela() {
         return permissaoedicaotela;
     }
 
-    public void setPermissaoedicaotela(String permissaoedicaotela) {
+    public void setPermissaoedicaotela(Boolean permissaoedicaotela) {
         this.permissaoedicaotela = permissaoedicaotela;
     }
 
-    public String getPermissaobtninclusao() {
+    public Boolean getPermissaobtninclusao() {
         return permissaobtninclusao;
     }
 
-    public void setPermissaobtninclusao(String permissaobtninclusao) {
+    public void setPermissaobtninclusao(Boolean permissaobtninclusao) {
         this.permissaobtninclusao = permissaobtninclusao;
     }
 
-    public String getPermissaobtnedicao() {
+    public Boolean getPermissaobtnedicao() {
         return permissaobtnedicao;
     }
 
-    public void setPermissaobtnedicao(String permissaobtnedicao) {
+    public void setPermissaobtnedicao(Boolean permissaobtnedicao) {
         this.permissaobtnedicao = permissaobtnedicao;
     }
 
-    public String getPermissaobtnexclusao() {
+    public Boolean getPermissaobtnexclusao() {
         return permissaobtnexclusao;
     }
 
-    public void setPermissaobtnexclusao(String permissaobtnexclusao) {
+    public void setPermissaobtnexclusao(Boolean permissaobtnexclusao) {
         this.permissaobtnexclusao = permissaobtnexclusao;
     }
 
-    public String getPermissaoconsulta() {
+    public Boolean getPermissaoconsulta() {
         return permissaoconsulta;
     }
 
-    public void setPermissaoconsulta(String permissaoconsulta) {
+    public void setPermissaoconsulta(Boolean permissaoconsulta) {
         this.permissaoconsulta = permissaoconsulta;
     }
 
-    public String getPermissoesativas() {
-        return permissoesativas;
+    public String getSituacao() {
+        return situacao;
     }
 
-    public void setPermissoesativas(String permissoesativas) {
-        this.permissoesativas = permissoesativas;
-    }
-
-    @XmlTransient
-    public Collection<TelasPermissoes> getTelasPermissoesCollection() {
-        return telasPermissoesCollection;
-    }
-
-    public void setTelasPermissoesCollection(Collection<TelasPermissoes> telasPermissoesCollection) {
-        this.telasPermissoesCollection = telasPermissoesCollection;
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
     @Override

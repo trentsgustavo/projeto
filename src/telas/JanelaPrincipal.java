@@ -53,6 +53,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jcaminhao = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jUsuario = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -175,6 +176,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jUsuario);
+
+        jMenuItem7.setText("Permissões");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
 
@@ -338,6 +347,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         telaUsuario.setVisible(true);
     }//GEN-LAST:event_jUsuarioActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        IfrPermissoes telaPermissao = new IfrPermissoes();
+        jDesktopPane1.add(telaPermissao);
+        telaPermissao.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -359,6 +374,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
