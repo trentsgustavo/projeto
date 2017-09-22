@@ -10,6 +10,7 @@ import apoio.templateTitulos;
 import dao.DAO;
 import dao.FuncoesDAO;
 import dao.PessoaDAO;
+import dao.ProdutosDAO;
 import dao.UsuarioDAO;
 import entidades.Funcoes;
 import entidades.Pessoas;
@@ -43,7 +44,6 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         new UsuarioDAO().popularTabela(tblUsuario, title);
         statusCampos(false);
         btnCancelar.setEnabled(false);
-        btnAlterar.setEnabled(false);
         tfdId.setVisible(false);
         btnPessoa.setEnabled(false);
         btnPessoa.setIcon(new ImageIcon(getClass().getResource("/icons/lupa.jpg")));
@@ -74,7 +74,6 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         tfdUsuario = new javax.swing.JTextField();
         tfdId = new javax.swing.JLabel();
-        btnAlterar = new javax.swing.JButton();
         btnPessoa = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         tdfFuncao = new javax.swing.JTextField();
@@ -148,8 +147,6 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
         tfdId.setText("0");
 
-        btnAlterar.setText("Alterar");
-
         btnPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPessoaActionPerformed(evt);
@@ -175,9 +172,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 450, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 533, Short.MAX_VALUE)
                         .addComponent(btnSairEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -236,8 +231,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSairEndereco)
                     .addComponent(btnSalvar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnAlterar))
+                    .addComponent(btnCancelar))
                 .addGap(37, 37, 37))
         );
 
@@ -365,13 +359,20 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
         UsuarioDAO ed = new UsuarioDAO();
         Usuarios e = new Usuarios();
         DAO d = new DAO();
         Object obj = tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         e = ed.consultarID(Integer.parseInt(str));
-        d.excluir(e);
+        if (confirma == JOptionPane.YES_OPTION) {
+            d.excluir(e);
+            JOptionPane.showMessageDialog(null, "Item excluído com sucesso!");
+            new ProdutosDAO().popularTabela(tblUsuario, title);
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
+        }
         new UsuarioDAO().popularTabela(tblUsuario, title);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -492,7 +493,6 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaManutencao;
-    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;

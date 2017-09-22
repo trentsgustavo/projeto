@@ -45,7 +45,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         new EnderecoDAO().popularTabela(tblEndereco, title);
         statusCampos(false);
         btnCancelar.setEnabled(false);
-        btnAlterar.setEnabled(false);
         tfdId.setVisible(false);
 
     }
@@ -77,7 +76,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         tfdNumero = new javax.swing.JTextField();
         tfdId = new javax.swing.JLabel();
-        btnAlterar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEndereco = new javax.swing.JTable();
@@ -155,8 +153,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
 
         tfdId.setText("0");
 
-        btnAlterar.setText("Alterar");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -168,8 +164,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSairEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -214,14 +208,13 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                     .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(tfdId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSairEndereco)
                     .addComponent(btnSalvar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnAlterar))
+                    .addComponent(btnCancelar))
                 .addGap(37, 37, 37))
         );
 
@@ -358,8 +351,11 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
         if(confirma == JOptionPane.YES_OPTION){
         d.excluir(e);
-        new EnderecoDAO().popularTabela(tblEndereco, title);
+        JOptionPane.showMessageDialog(null, "Registro excluído!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Erro ao excluir registro");
         }
+        new EnderecoDAO().popularTabela(tblEndereco, title);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -457,7 +453,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaManutencao;
-    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
