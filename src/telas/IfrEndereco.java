@@ -438,6 +438,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                         new EnderecoDAO().popularTabela(tblEndereco, title);
                     }else{
                         dao.atualizar(e);
+                        new EnderecoDAO().popularTabela(tblEndereco, title);
                     }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());

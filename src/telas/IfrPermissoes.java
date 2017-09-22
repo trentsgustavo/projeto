@@ -39,7 +39,7 @@ public class IfrPermissoes extends javax.swing.JInternalFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         btnSalvar.setText(templateTitulos.getBtnNovo());
-        new PessoaDAO().popularTabela(tblPermisoes, title);
+        new PermissoesDAO().popularTabela(tblPermisoes, title);
         statusCampos(false);
         btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
@@ -340,6 +340,7 @@ public class IfrPermissoes extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
         }
+        new PermissoesDAO().popularTabela(tblPermisoes, title);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -359,6 +360,7 @@ public class IfrPermissoes extends javax.swing.JInternalFrame {
 
         abaManutencao.setSelectedIndex(0);
         btnSalvar.setText(templateTitulos.getBtnAtualizar());
+        new PermissoesDAO().popularTabela(tblPermisoes, title);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -368,6 +370,7 @@ public class IfrPermissoes extends javax.swing.JInternalFrame {
         TratarCampos.limparCampos(jPanel1);
         TratarCampos.setaBorda(jPanel1, false);
         btnSalvar.setText(templateTitulos.getBtnNovo());
+        new PermissoesDAO().popularTabela(tblPermisoes, title);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
@@ -410,8 +413,10 @@ public class IfrPermissoes extends javax.swing.JInternalFrame {
                     p.setSituacao("a");
                     if (p.getId() == 0) {
                         dao.salvar(p);
+                        new PermissoesDAO().popularTabela(tblPermisoes, title);
                     } else {
                         dao.atualizar(p);
+                        new PermissoesDAO().popularTabela(tblPermisoes, title);
                     }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());

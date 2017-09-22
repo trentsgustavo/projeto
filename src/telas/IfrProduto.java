@@ -318,6 +318,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         String str = String.valueOf(obj);
         p = pd.consultarID(Integer.parseInt(str));
         d.excluir(p);
+        new ProdutosDAO().popularTabela(tblProdutos, title);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -332,6 +333,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         tfdPeso.setText(p.getPeso()+"");
         abaManutencao.setSelectedIndex(0);
         btnSalvar.setText(templateTitulos.getBtnAtualizar());
+        new ProdutosDAO().popularTabela(tblProdutos, title);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -341,6 +343,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         TratarCampos.limparCampos(jPanel1);
         TratarCampos.setaBorda(jPanel1, false);
         btnSalvar.setText(templateTitulos.getBtnNovo());
+        new ProdutosDAO().popularTabela(tblProdutos, title);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
@@ -385,8 +388,10 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                     pro.setSituacao("a");
                     if(pro.getId()==0){
                         dao.salvar(pro);
+                        new ProdutosDAO().popularTabela(tblProdutos, title);
                     }else{
                         dao.atualizar(pro);
+                        new ProdutosDAO().popularTabela(tblProdutos, title);
                     }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());

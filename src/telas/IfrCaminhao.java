@@ -348,6 +348,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao excluir registro!");
         }
+        new CaminhaoDAO().popularTabela(tblCaminhao, title);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -364,6 +365,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         tfdCapacidade.setText(c.getCapacidade()+"");
         abaManutencao.setSelectedIndex(0);
         btnSalvar.setText(templateTitulos.getBtnAtualizar());
+        new CaminhaoDAO().popularTabela(tblCaminhao, title);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -373,6 +375,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         TratarCampos.limparCampos(jPanel1);
         TratarCampos.setaBorda(jPanel1, false);
         btnSalvar.setText(templateTitulos.getBtnNovo());
+        new CaminhaoDAO().popularTabela(tblCaminhao, title);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
@@ -423,8 +426,10 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
                     cam.setSituacao("a");
                     if(cam.getId()==0){
                         dao.salvar(cam);
+                        new CaminhaoDAO().popularTabela(tblCaminhao, title);
                     }else{
                         dao.atualizar(cam);
+                        new CaminhaoDAO().popularTabela(tblCaminhao, title);
                     }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());

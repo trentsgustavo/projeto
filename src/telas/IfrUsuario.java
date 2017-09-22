@@ -372,6 +372,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         String str = String.valueOf(obj);
         e = ed.consultarID(Integer.parseInt(str));
         d.excluir(e);
+        new UsuarioDAO().popularTabela(tblUsuario, title);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -387,6 +388,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         tfdId.setText(e.getId() + "");
         abaManutencao.setSelectedIndex(0);
         btnSalvar.setText(templateTitulos.getBtnAtualizar());
+        new UsuarioDAO().popularTabela(tblUsuario, title);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -460,10 +462,11 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     e.setId(Integer.parseInt(tfdId.getText()));
                     if (e.getId() == 0) {
                         dao.salvar(e);
+                        new UsuarioDAO().popularTabela(tblUsuario, title);
                     } else {
                         dao.atualizar(e);
+                        new UsuarioDAO().popularTabela(tblUsuario, title);
                     }
-                    System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);
                     btnCancelar.setEnabled(false);
