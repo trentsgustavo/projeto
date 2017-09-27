@@ -93,7 +93,7 @@ public Object validaUser(Object o) {
                 
                 dadosTabela[lin][0] = u.getId();
                 dadosTabela[lin][1] = u.getPessoasId().getNome()+" "+u.getPessoasId().getSobrenome();
-                dadosTabela[lin][2] = u.getFuncoesId().getDescricao();
+                dadosTabela[lin][2] = u.getFuncoesId();
                 dadosTabela[lin][3] = u.getUsuario();
                 dadosTabela[lin][4] = u.getSenha();
                 dadosTabela[lin][5] = u.getSituacao();

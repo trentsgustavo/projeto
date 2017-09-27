@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +20,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p"),
     @NamedQuery(name = "Pedido.findById", query = "SELECT p FROM Pedido p WHERE p.id = :id"),
+    @NamedQuery(name = "Pedido.findByUsuariosId", query = "SELECT p FROM Pedido p WHERE p.usuariosId = :usuariosId"),
     @NamedQuery(name = "Pedido.findByData", query = "SELECT p FROM Pedido p WHERE p.data = :data"),
     @NamedQuery(name = "Pedido.findByHora", query = "SELECT p FROM Pedido p WHERE p.hora = :hora"),
     @NamedQuery(name = "Pedido.findBySituacao", query = "SELECT p FROM Pedido p WHERE p.situacao = :situacao")})
@@ -49,6 +48,9 @@ public class Pedido implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "usuarios_id")
+    private int usuariosId;
     @Basic(optional = false)
     @Column(name = "data")
     @Temporal(TemporalType.DATE)
@@ -68,11 +70,6 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "pessoas_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoas pessoasId;
-    @JoinColumn(name = "usuarios_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Usuarios usuariosId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId")
-    private Collection<Carga> cargaCollection;
 
     public Pedido() {
     }
@@ -81,8 +78,9 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Pedido(Integer id, Date data, Date hora, String situacao) {
+    public Pedido(Integer id, int usuariosId, Date data, Date hora, String situacao) {
         this.id = id;
+        this.usuariosId = usuariosId;
         this.data = data;
         this.hora = hora;
         this.situacao = situacao;
@@ -94,6 +92,14 @@ public class Pedido implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getUsuariosId() {
+        return usuariosId;
+    }
+
+    public void setUsuariosId(int usuariosId) {
+        this.usuariosId = usuariosId;
     }
 
     public Date getData() {
@@ -135,23 +141,6 @@ public class Pedido implements Serializable {
 
     public void setPessoasId(Pessoas pessoasId) {
         this.pessoasId = pessoasId;
-    }
-
-    public Usuarios getUsuariosId() {
-        return usuariosId;
-    }
-
-    public void setUsuariosId(Usuarios usuariosId) {
-        this.usuariosId = usuariosId;
-    }
-
-    @XmlTransient
-    public Collection<Carga> getCargaCollection() {
-        return cargaCollection;
-    }
-
-    public void setCargaCollection(Collection<Carga> cargaCollection) {
-        this.cargaCollection = cargaCollection;
     }
 
     @Override

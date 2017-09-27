@@ -458,7 +458,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
                     p = pd.consultarID(Integer.parseInt(tfdPessoa.getText()));
                     e.setPessoasId(p);
                     f = fd.consultarID(Integer.parseInt(tdfFuncao.getText()));
-                    e.setFuncoesId(f);
+                    e.setFuncoesId(f.getId());
                     e.setSituacao("a");
                     e.setId(Integer.parseInt(tfdId.getText()));
                     if (e.getId() == 0) {

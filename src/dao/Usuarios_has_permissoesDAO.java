@@ -5,27 +5,25 @@
  */
 package dao;
 
+
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import entidades.Permissoes;
+import entidades.Usuarios_has_permissoes;
 import hibernate.HibernateUtil;
 import javax.swing.table.TableColumn;
-import org.hibernate.Query;
-import dao.DAO;
 import org.hibernate.HibernateException;
 
-public class PermissoesDAO {
+public class Usuarios_has_permissoesDAO {
 
     public List<Object> consultarTodos() {
         List resultado = null;
-        Permissoes perm = new Permissoes();
+       Usuarios_has_permissoes u = new Usuarios_has_permissoes();
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
-            org.hibernate.Query q = sessao.createQuery("from Permissoes");
+            org.hibernate.Query q = sessao.createQuery("from Usuarios_has_permissoes");
             resultado = q.list();
             sessao.close();
             return resultado;
@@ -42,11 +40,12 @@ public class PermissoesDAO {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[4];
-        cabecalho[0] = "Id";
-        cabecalho[1] = "Descrição";
-        cabecalho[2] = "Telas ID";
-        cabecalho[3] = "Situação";
+        Object[] cabecalho = new Object[3];
+        cabecalho[0] = "Usuários Id";
+        cabecalho[1] = "Permissões Id";
+        cabecalho[2] = "Situação";
+        
+        
 
         // cria matriz de acordo com nº de registros da tabela
         List resultado = null;
@@ -54,19 +53,19 @@ public class PermissoesDAO {
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
-            org.hibernate.Query q = sessao.createQuery("from Permissoes");
+            org.hibernate.Query q = sessao.createQuery("from Usuarios_has_permissoes");
             resultado = q.list();
             System.out.println("tamanho:" + resultado.size());
 
-            dadosTabela = new Object[resultado.size()][4];
+            dadosTabela = new Object[resultado.size()][3];
 
             for (Object o : resultado) {
-                Permissoes p = (Permissoes) o;
-                dadosTabela[lin][0] = p.getId();
-                dadosTabela[lin][1] = p.getDescricao();
-                dadosTabela[lin][2] = p.getTelasId();
-                dadosTabela[lin][3] = p.getSituacao();
-
+                Usuarios_has_permissoes u = (Usuarios_has_permissoes) o;
+                
+                dadosTabela[lin][0] = u.getIdUsuario();
+                dadosTabela[lin][1] = u.getIdPermissoes();
+                dadosTabela[lin][2] = u.getSituacao();
+                
                 lin++;
             }
 
@@ -114,20 +113,20 @@ public class PermissoesDAO {
                 }
         }
     }
-
-    public Permissoes consultarID(int id) {
+    
+    public Usuarios_has_permissoes consultarID(int id) {
         List resultado = null;
-        Permissoes s = null;
+        Usuarios_has_permissoes s = null;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
 
         try {
 
-            org.hibernate.Query q = sessao.createQuery("from Permissoes where id = " + id);
+            org.hibernate.Query q = sessao.createQuery("from Usuarios_has_permissoes where usuarios_id = " + id);
             resultado = q.list();
 
             for (Object o : resultado) {
-                s = (Permissoes) o;
+                s = (Usuarios_has_permissoes) o;
             }
 
         } catch (HibernateException he) {
@@ -137,5 +136,5 @@ public class PermissoesDAO {
         }
         return s;
     }
-
+    
 }

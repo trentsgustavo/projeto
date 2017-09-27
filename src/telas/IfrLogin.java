@@ -155,15 +155,15 @@ public class IfrLogin extends javax.swing.JFrame {
         System.out.println("Objeto: " + u.getUsuario());
 
         if (u.getSenha().equals(tfdSenha.getText())) {
-            if (u.getFuncoesId().getId() == 1) {
+            if (u.getFuncoesId() == 1) {
                 JanelaPrincipal frmPrinc = new JanelaPrincipal();
                 frmPrinc.setVisible(true);
                 this.dispose();
-            } else if (u.getFuncoesId().getId() == 2) {
+            } else if (u.getFuncoesId()== 2) {
                 JanelaAtendente frmAtend = new JanelaAtendente();
                 frmAtend.setVisible(true);
                 this.dispose();
-            } else if (u.getFuncoesId().getId() == 3) {
+            } else if (u.getFuncoesId() == 3) {
                 JanelaCaminhoneiros frmCam = new JanelaCaminhoneiros();
                 frmCam.setVisible(true);
                 this.dispose();

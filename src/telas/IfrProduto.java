@@ -8,14 +8,26 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
-import dao.EnderecoDAO;
 import dao.ProdutosDAO;
-import entidades.Endereco;
+import dao.UsuarioDAO;
+import dao.TelasDAO;
+import dao.Usuarios_has_permissoesDAO;
+import entidades.Permissoes;
 import entidades.Produtos;
+import entidades.Usuarios;
+import entidades.Usuarios_has_permissoes;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeEvent;
+import javax.swing.JTextField;
+import hibernate.HibernateUtil;
+import org.hibernate.Session;
 
 /**
  *
@@ -27,6 +39,12 @@ public class IfrProduto extends javax.swing.JInternalFrame {
     int status;
     ProdutosDAO pDAO;
     Produtos p;
+    UsuarioDAO usDAO;
+    Usuarios us;
+    TelasDAO tDAO;
+    Permissoes pe;
+    Usuarios_has_permissoes upe;
+    Usuarios_has_permissoesDAO udao;
     
     public IfrProduto() {
         setTitle("Cadastro de Produtos");
@@ -37,8 +55,9 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         btnSalvar.setText(templateTitulos.getBtnNovo());
         new ProdutosDAO().popularTabela(tblProdutos, title);
         statusCampos(false);
-        btnCancelar.setEnabled(false);
+        //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
+        definirPermissoes(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -395,8 +414,62 @@ public class IfrProduto extends javax.swing.JInternalFrame {
             default:
                 break;
         }
+        
+    }
+    public void definirPermissoes(Container tela) {
+        List<Component> componentList = new ArrayList<Component>();
+        componentList = getAllComponents(tela);
+
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+
+        List<Object[]> resultado = sessao.createSQLQuery("select pe.descricao, pe.id from usuarios_has_permissoes up"
+                + " left join permissoes pe on (up.permissoes_id = pe.id)"
+                + " left join telas tl on (pe.telas_id = tl.id)"
+                + " where tl.descricao = '" + tela.getName() + "'"
+                + " and up.usuarios_id = " + System.getProperty("usuarios_id")).list();
+
+        for (int j = 0; j < componentList.size(); j++) {
+            for (Object[] o : resultado) {
+                if (componentList.get(j).getName().equals(o[0].toString())) {
+                    componentList.get(j).setEnabled(false);
+                }
+
+            }
+        }
     }
     
+     public static List<Component> getAllComponents(final Container c) {
+        Component[] comps = c.getComponents();
+        List<Component> compList = new ArrayList<Component>();
+        for (Component comp : comps) {
+            if (comp instanceof JButton && comp.getName() != null) {
+                compList.add(comp);
+            } else if (comp instanceof JTextField && comp.getName() != null) {
+                compList.add(comp);
+            } else if (comp instanceof JCheckBox && comp.getName() != null) {
+                compList.add(comp);
+            } else if (comp instanceof Container) {
+                compList.addAll(getAllComponents((Container) comp));
+            }
+        }
+        return compList;
+    }
+    private void aplicaPermissao() {
+        List<Object> telas = null;
+         //for (Object o : telas) {
+        upe = udao.consultarID(us.getId());
+        if (pe.getTelasId().getDescricao() == "IfrProduto"){
+            btnSalvar.setEnabled(pe.getSituacao());
+            
+        }
+        else{
+             JOptionPane.showMessageDialog(null, "Você não tem permissão para esta tela!");
+                    this.dispose();
+        }
+         
+      
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaManutencao;

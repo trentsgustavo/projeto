@@ -348,9 +348,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jUsuarioActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        IfrPermissoes telaPermissao = new IfrPermissoes();
-        jDesktopPane1.add(telaPermissao);
-        telaPermissao.setVisible(true);
+       
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**

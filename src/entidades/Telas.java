@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Telas.findBySituacao", query = "SELECT t FROM Telas t WHERE t.situacao = :situacao")})
 public class Telas implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "telasId")
+    private Collection<Permissoes> permissoesCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +50,6 @@ public class Telas implements Serializable {
     @Basic(optional = false)
     @Column(name = "situacao")
     private String situacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "telasId")
-    private Collection<TelasPermissoes> telasPermissoesCollection;
 
     public Telas() {
     }
@@ -87,15 +88,6 @@ public class Telas implements Serializable {
         this.situacao = situacao;
     }
 
-    @XmlTransient
-    public Collection<TelasPermissoes> getTelasPermissoesCollection() {
-        return telasPermissoesCollection;
-    }
-
-    public void setTelasPermissoesCollection(Collection<TelasPermissoes> telasPermissoesCollection) {
-        this.telasPermissoesCollection = telasPermissoesCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -119,6 +111,15 @@ public class Telas implements Serializable {
     @Override
     public String toString() {
         return "entidades.Telas[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Permissoes> getPermissoesCollection() {
+        return permissoesCollection;
+    }
+
+    public void setPermissoesCollection(Collection<Permissoes> permissoesCollection) {
+        this.permissoesCollection = permissoesCollection;
     }
     
 }

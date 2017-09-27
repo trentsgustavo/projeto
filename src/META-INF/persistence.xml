@@ -19,6 +19,8 @@
     <class>entidades.Usuarios</class>
     <class>entidades.UsuarioCaminhao</class>
     <class>entidades.Funcoes</class>
+    <class>entidades.UsuariosHasPermissoes</class>
+    <class>entidades.UsuariosPermissoes</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Transports"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
