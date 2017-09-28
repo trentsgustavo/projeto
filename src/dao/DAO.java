@@ -19,6 +19,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+
 public class DAO<T> {
 
     public DAO() {
@@ -104,7 +105,7 @@ public class DAO<T> {
             }
         }
         tela.setVisible(false);
-        //JOptionPane.showMessageDialog(tela, "Você não tem permissão para esta tela!");
+        JOptionPane.showMessageDialog(tela, "Você não tem permissão para esta tela!");
 
     }
     

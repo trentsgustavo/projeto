@@ -49,11 +49,8 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         btnSalvar.setText(templateTitulos.getBtnNovo());
         new EnderecoDAO().popularTabela(tblEndereco, title);
         statusCampos(false);
-        //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
-        //getAllComponents(this);
         new DAO().definirPermissoes(this , 1);
-        //Container tela = this;
         
 
     }
