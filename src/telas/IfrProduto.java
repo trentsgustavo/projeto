@@ -39,12 +39,6 @@ public class IfrProduto extends javax.swing.JInternalFrame {
     int status;
     ProdutosDAO pDAO;
     Produtos p;
-    UsuarioDAO usDAO;
-    Usuarios us;
-    TelasDAO tDAO;
-    Permissoes pe;
-    Usuarios_has_permissoes upe;
-    Usuarios_has_permissoesDAO udao;
     
     public IfrProduto() {
         setTitle("Cadastro de Produtos");
@@ -57,10 +51,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         statusCampos(false);
         //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
-        getAllComponents(this);
-        definirPermissoes(this, 4);
-        Container tela =this;
-        System.out.println(this.getName());
+        new DAO().definirPermissoes(this, 1);
     }
     
     @SuppressWarnings("unchecked")
@@ -424,80 +415,6 @@ public class IfrProduto extends javax.swing.JInternalFrame {
                 break;
         }
         
-    }
-    public void definirPermissoes(Container tela, int id) {
-        System.out.println("entrei no definir permissões");
-        System.out.println(this.getName());
-        List<Component> componentList = new ArrayList<Component>();
-        componentList = getAllComponents(this);
-        System.out.println(componentList = getAllComponents(this));
-
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        sessao.beginTransaction();
-
-        List<Object[]> resultado = sessao.createSQLQuery("select pe.descricao, pe.id from usuarios_has_permissoes up"
-                + " left join permissoes pe on (up.permissoes_id = pe.id)"
-                + " left join telas tl on (pe.telas_id = tl.id)"
-                + " where tl.descricao = '" + tela.getName() + "'"
-                + "and up.usuarios_id = " + id + "").list();
-       
-        System.out.println(resultado);
-        
-        System.out.println(tela.getName());
-        System.out.println("");
-
-        for (int j = 0; j < componentList.size(); j++) {
-            System.out.println("entrei no for");
-            for (Object[] o : resultado) {
-                System.out.println("entrei no segundo for");
-                if (componentList.get(j).getName().equals(o[0].toString())) {
-                    System.out.println("entrei aqui");
-                    System.out.println(componentList.get(j));
-                    System.out.println("aquiiiiiiiiiii");
-
-                    componentList.get(j).setEnabled(false);
-                    System.out.println("sads");
-                }
-
-            }
-        }
-    }
-    
-     public static List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            if (comp instanceof JButton && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JTextField && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JCheckBox && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof Container) {
-                compList.addAll(getAllComponents((Container) comp));
-                System.out.println(compList);
-            }
-        }
-        return compList;
-         
-    }
-    private void aplicaPermissao() {
-        List<Object> telas = null;
-         //for (Object o : telas) {
-        upe = udao.consultarID(us.getId());
-        if (pe.getTelasId().getDescricao() == "IfrProduto"){
-            btnSalvar.setEnabled(pe.getSituacao());
-            
-        }
-        else{
-             JOptionPane.showMessageDialog(null, "Você não tem permissão para esta tela!");
-                    this.dispose();
-        }
-         
-      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

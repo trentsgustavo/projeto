@@ -10,12 +10,14 @@ import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import static telas.IfrProduto.getAllComponents;
 
 public class DAO<T> {
 
@@ -38,6 +40,7 @@ public class DAO<T> {
             session.close();
         }
     }
+
     public void atualizar(Object object) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transacion = null;
@@ -71,23 +74,28 @@ public class DAO<T> {
             session.close();
         }
     }
-public void definirPermissoes(Container tela, int id) {
+
+    public void definirPermissoes(Container tela, int id) {
         List<Component> componentList = new ArrayList<Component>();
         componentList = getAllComponents(tela);
         System.out.println(componentList = getAllComponents(tela));
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
+
         List<Object[]> resultado = sessao.createSQLQuery("select pe.descricao, pe.id from usuarios_has_permissoes up"
                 + " left join permissoes pe on (up.permissoes_id = pe.id)"
                 + " left join telas tl on (pe.telas_id = tl.id)"
                 + " where tl.descricao = '" + tela.getName() + "'"
-                + "and up.usuarios_id = " + id + "").list();
-     
+                + " and up.usuarios_id = " + id).list();
+
         for (int j = 0; j < componentList.size(); j++) {
+            System.out.println(tela.getName());
+            //System.out.println("primeiro for");
             for (Object[] o : resultado) {
+                //  System.out.println("segundo for");
                 if (componentList.get(j).getName().equals(o[0].toString())) {
-                    System.out.println(componentList.get(j));
-                    System.out.println("aquiiiiiiiiiii");
+                    //System.out.println(componentList.get(j));
+                    //System.out.println("aquiiiiiiiiiii");
 
                     componentList.get(j).setEnabled(false);
                     System.out.println("sads");
@@ -96,55 +104,34 @@ public void definirPermissoes(Container tela, int id) {
             }
         }
         tela.setVisible(false);
-        JOptionPane.showMessageDialog(tela, "Você não tem permissão para esta tela!");
-        
+        //JOptionPane.showMessageDialog(tela, "Você não tem permissão para esta tela!");
+
     }
+    
+    public static List<Component> getAllComponents(final Container c) {
+        Component[] comps = c.getComponents();
+        List<Component> compList = new ArrayList<Component>();
+        for (Component comp : comps) {
+            if (comp instanceof JButton && comp.getName() != null) {
+                compList.add(comp);
+                System.out.println(compList);
+            } else if (comp instanceof JTextField && comp.getName() != null) {
+                compList.add(comp);
+                //System.out.println(compList);
+            } else if (comp instanceof JCheckBox && comp.getName() != null) {
+                compList.add(comp);
+                //System.out.println(compList);
+            } else if (comp instanceof Container) {
+                compList.addAll(getAllComponents((Container) comp));
+                //System.out.println(compList);
+            }
+        }
+        return compList;
+    }
+
     public List<T> query(String sql) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery(sql);
         return (List<T>) query.list();
     }
-
-    /*public void definirPermissoes(Container tela) {
-        List<Component> componentList = new ArrayList<Component>();
-        componentList = getAllComponents(tela);
-
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        sessao.beginTransaction();
-
-        List<Object[]> resultado = sessao.createSQLQuery("select p.descricao, p.id from usuarios_has_permissoes up"
-                + " left join permissoes p on (up.permissoes_id = p.id)"
-                + " left join telas t on (p.telas_id = t.id)"
-                + " where t.descricao = 'IfrTeste'" /*+ tela.getName() + "'"
-                + " and up.usuarios_id = 1"/* +System.getProperty("usuarios_id")).list();
-
-        for (int j = 0; j < componentList.size(); j++) {
-            System.out.println("teste");
-            for (Object[] o : resultado) {
-                if (componentList.get(j).getName().equals(o[0].toString())) {
-                    componentList.get(j).setEnabled(false);
-                }
-            }
-        }
-    }
-
-    public static List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            if (comp instanceof JButton/* && comp.getName() != null) {
-                System.out.println("entrei aqui");
-                compList.add(comp);
-            } else if (comp instanceof JTextField && comp.getName() != null) {
-                compList.add(comp);
-            } else if (comp instanceof JCheckBox && comp.getName() != null) {
-                compList.add(comp);
-            } else if (comp instanceof Container) {
-                compList.addAll(getAllComponents((Container) comp));
-            }
-        }
-        //System.out.println(compList);
-        System.out.println("comps:" + comps);
-        return compList;
-    }*/
 }

@@ -9,7 +9,12 @@ import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
 import dao.EnderecoDAO;
+import dao.UsuarioDAO;
+import dao.Usuarios_has_permissoesDAO;
 import entidades.Endereco;
+import entidades.Permissoes;
+import entidades.Usuarios;
+import entidades.Usuarios_has_permissoes;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -46,9 +51,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         statusCampos(false);
         //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
-        getAllComponents(this);
-        new DAO().definirPermissoes(this, 4);
-        Container tela = this;
+        //getAllComponents(this);
+        new DAO().definirPermissoes(this , 1);
+        //Container tela = this;
+        
 
     }
 
@@ -329,6 +335,8 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                 .addGap(13, 13, 13))
         );
 
+        getAccessibleContext().setAccessibleName("IfrEndereco");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -468,8 +476,8 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                 break;
         }
     }
-
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abaManutencao;
     private javax.swing.JButton btnCancelar;
