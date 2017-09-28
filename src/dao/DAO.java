@@ -6,10 +6,15 @@
 package dao;
 
 import hibernate.HibernateUtil;
+import java.awt.Component;
+import java.awt.Container;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -18,7 +23,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 public class DAO<T> {
-
 
     public DAO() {
     }
@@ -73,10 +77,53 @@ public class DAO<T> {
             session.close();
         }
     }
+
     public List<T> query(String sql) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery(sql);
         return (List<T>) query.list();
     }
 
+    /*public void definirPermissoes(Container tela) {
+        List<Component> componentList = new ArrayList<Component>();
+        componentList = getAllComponents(tela);
+
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+
+        List<Object[]> resultado = sessao.createSQLQuery("select p.descricao, p.id from usuarios_has_permissoes up"
+                + " left join permissoes p on (up.permissoes_id = p.id)"
+                + " left join telas t on (p.telas_id = t.id)"
+                + " where t.descricao = 'IfrTeste'" /*+ tela.getName() + "'"
+                + " and up.usuarios_id = 1"/* +System.getProperty("usuarios_id")).list();
+
+        for (int j = 0; j < componentList.size(); j++) {
+            System.out.println("teste");
+            for (Object[] o : resultado) {
+                if (componentList.get(j).getName().equals(o[0].toString())) {
+                    componentList.get(j).setEnabled(false);
+                }
+            }
+        }
+    }
+
+    public static List<Component> getAllComponents(final Container c) {
+        Component[] comps = c.getComponents();
+        List<Component> compList = new ArrayList<Component>();
+        for (Component comp : comps) {
+            if (comp instanceof JButton/* && comp.getName() != null) {
+                System.out.println("entrei aqui");
+                compList.add(comp);
+            } else if (comp instanceof JTextField && comp.getName() != null) {
+                compList.add(comp);
+            } else if (comp instanceof JCheckBox && comp.getName() != null) {
+                compList.add(comp);
+            } else if (comp instanceof Container) {
+                compList.addAll(getAllComponents((Container) comp));
+            }
+        }
+        //System.out.println(compList);
+        System.out.println("comps:" + comps);
+        return compList;
+    }*/
 }

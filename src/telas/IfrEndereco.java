@@ -10,12 +10,14 @@ import apoio.templateTitulos;
 import dao.DAO;
 import dao.EnderecoDAO;
 import dao.ProdutosDAO;
+import dao.UsuarioDAO;
 import entidades.Endereco;
 import entidades.Produtos;
 import hibernate.HibernateUtil;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -37,6 +39,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
      */
     public IfrEndereco() {
         setTitle("Cadastro de Endereco");
+        setName("IfrEndereco");
         initComponents();
         this.setSize(800, 500);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -44,8 +47,9 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         btnSalvar.setText(templateTitulos.getBtnNovo());
         new EnderecoDAO().popularTabela(tblEndereco, title);
         statusCampos(false);
-        btnCancelar.setEnabled(false);
+        //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
+       // new DAO().definirPermissoes(this);
 
     }
 
@@ -66,7 +70,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         tfdCidade = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
-        btnSairEndereco = new javax.swing.JButton();
+        btnSairManutencao = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -84,7 +88,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         btnPesquisar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSairConsulta = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -119,10 +123,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSairEndereco.setText("Sair");
-        btnSairEndereco.addActionListener(new java.awt.event.ActionListener() {
+        btnSairManutencao.setText("Sair");
+        btnSairManutencao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairEnderecoActionPerformed(evt);
+                btnSairManutencaoActionPerformed(evt);
             }
         });
 
@@ -165,7 +169,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSairEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSairManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -212,7 +216,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSairEndereco)
+                    .addComponent(btnSairManutencao)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
                 .addGap(37, 37, 37))
@@ -256,10 +260,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Sair");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSairConsulta.setText("Sair");
+        btnSairConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSairConsultaActionPerformed(evt);
             }
         });
 
@@ -286,7 +290,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                         .addGap(0, 369, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSairConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -303,7 +307,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
                     .addComponent(btnEditar)
-                    .addComponent(jButton2))
+                    .addComponent(btnSairConsulta))
                 .addContainerGap())
         );
 
@@ -329,9 +333,9 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairEnderecoActionPerformed
+    private void btnSairManutencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairManutencaoActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnSairEnderecoActionPerformed
+    }//GEN-LAST:event_btnSairManutencaoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         controleAtualizacao();
@@ -383,9 +387,9 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSair1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSairConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairConsultaActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSairConsultaActionPerformed
 
     private void tfdNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNumeroActionPerformed
         // TODO add your handling code here:
@@ -458,9 +462,9 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSair1;
-    private javax.swing.JButton btnSairEndereco;
+    private javax.swing.JButton btnSairConsulta;
+    private javax.swing.JButton btnSairManutencao;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
