@@ -8,19 +8,14 @@ package dao;
 import hibernate.HibernateUtil;
 import java.awt.Component;
 import java.awt.Container;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import org.hibernate.Criteria;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+import static telas.IfrProduto.getAllComponents;
 
 public class DAO<T> {
 
@@ -43,7 +38,6 @@ public class DAO<T> {
             session.close();
         }
     }
-
     public void atualizar(Object object) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transacion = null;
@@ -77,7 +71,34 @@ public class DAO<T> {
             session.close();
         }
     }
+public void definirPermissoes(Container tela, int id) {
+        List<Component> componentList = new ArrayList<Component>();
+        componentList = getAllComponents(tela);
+        System.out.println(componentList = getAllComponents(tela));
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        List<Object[]> resultado = sessao.createSQLQuery("select pe.descricao, pe.id from usuarios_has_permissoes up"
+                + " left join permissoes pe on (up.permissoes_id = pe.id)"
+                + " left join telas tl on (pe.telas_id = tl.id)"
+                + " where tl.descricao = '" + tela.getName() + "'"
+                + "and up.usuarios_id = " + id + "").list();
+     
+        for (int j = 0; j < componentList.size(); j++) {
+            for (Object[] o : resultado) {
+                if (componentList.get(j).getName().equals(o[0].toString())) {
+                    System.out.println(componentList.get(j));
+                    System.out.println("aquiiiiiiiiiii");
 
+                    componentList.get(j).setEnabled(false);
+                    System.out.println("sads");
+                }
+
+            }
+        }
+        tela.setVisible(false);
+        JOptionPane.showMessageDialog(tela, "Você não tem permissão para esta tela!");
+        
+    }
     public List<T> query(String sql) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery(sql);

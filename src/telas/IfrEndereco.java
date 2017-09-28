@@ -9,19 +9,17 @@ import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
 import dao.EnderecoDAO;
-import dao.ProdutosDAO;
-import dao.UsuarioDAO;
 import entidades.Endereco;
-import entidades.Produtos;
-import hibernate.HibernateUtil;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javax.swing.JTextField;
 
 /**
  *
@@ -39,7 +37,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
      */
     public IfrEndereco() {
         setTitle("Cadastro de Endereco");
-        setName("IfrEndereco");
         initComponents();
         this.setSize(800, 500);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -49,7 +46,9 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         statusCampos(false);
         //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
-       // new DAO().definirPermissoes(this);
+        getAllComponents(this);
+        new DAO().definirPermissoes(this, 4);
+        Container tela = this;
 
     }
 
@@ -83,12 +82,9 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEndereco = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        tfdPesquisar = new javax.swing.JTextField();
-        btnPesquisar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        btnSairConsulta = new javax.swing.JButton();
+        btnSairManutencao1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -109,14 +105,19 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         });
 
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        setTitle("Cadastro - Produtos");
+        setTitle("Cadastro - Endereço");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setName("IfrEndereco"); // NOI18N
 
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 400));
 
         jLabel1.setText("*Cidade:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnSalvar.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnSalvar.setName("btnSalvar"); // NOI18N
+        btnSalvar.setPreferredSize(new java.awt.Dimension(90, 25));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -124,6 +125,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         });
 
         btnSairManutencao.setText("Sair");
+        btnSairManutencao.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnSairManutencao.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnSairManutencao.setName("btnSair"); // NOI18N
+        btnSairManutencao.setPreferredSize(new java.awt.Dimension(90, 25));
         btnSairManutencao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSairManutencaoActionPerformed(evt);
@@ -131,6 +136,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnCancelar.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnCancelar.setName("IfrEndereco"); // NOI18N
+        btnCancelar.setPreferredSize(new java.awt.Dimension(90, 25));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -163,33 +172,32 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSairManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfdRua, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(tfdCidade)
+                            .addComponent(tfdEstado)
+                            .addComponent(tfdNumero))
+                        .addGap(152, 475, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfdRua, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                                    .addComponent(tfdCidade)
-                                    .addComponent(tfdEstado)
-                                    .addComponent(tfdNumero))
-                                .addGap(152, 475, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jSeparator3)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSairManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,14 +220,14 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                     .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(tfdId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSairManutencao)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnCancelar))
-                .addGap(37, 37, 37))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSairManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
 
         abaManutencao.addTab("Manutenção", jPanel1);
@@ -237,16 +245,11 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblEndereco);
 
-        jLabel2.setText("Busca");
-
-        btnPesquisar.setText("Pesquisar");
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
-            }
-        });
-
         btnEditar.setText("Editar");
+        btnEditar.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnEditar.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnEditar.setName("btnEditar"); // NOI18N
+        btnEditar.setPreferredSize(new java.awt.Dimension(90, 25));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -254,16 +257,24 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnExcluir.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnExcluir.setName("btnExcluir"); // NOI18N
+        btnExcluir.setPreferredSize(new java.awt.Dimension(90, 25));
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
             }
         });
 
-        btnSairConsulta.setText("Sair");
-        btnSairConsulta.addActionListener(new java.awt.event.ActionListener() {
+        btnSairManutencao1.setText("Sair");
+        btnSairManutencao1.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnSairManutencao1.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnSairManutencao1.setName("btnSair"); // NOI18N
+        btnSairManutencao1.setPreferredSize(new java.awt.Dimension(90, 25));
+        btnSairManutencao1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairConsultaActionPerformed(evt);
+                btnSairManutencao1ActionPerformed(evt);
             }
         });
 
@@ -274,41 +285,29 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPesquisar))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnExcluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 369, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSairConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSairManutencao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfdPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                .addGap(13, 13, 13)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnEditar)
-                    .addComponent(btnSairConsulta))
-                .addContainerGap())
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSairManutencao1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         abaManutencao.addTab("Consulta", jPanel2);
@@ -324,10 +323,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(abaManutencao)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(abaManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
         );
 
         pack();
@@ -336,14 +335,30 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
     private void btnSairManutencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairManutencaoActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairManutencaoActionPerformed
+    public static List<Component> getAllComponents(final Container c) {
+        Component[] comps = c.getComponents();
+        List<Component> compList = new ArrayList<Component>();
+        for (Component comp : comps) {
+            if (comp instanceof JButton && comp.getName() != null) {
+                compList.add(comp);
+                System.out.println(compList);
+            } else if (comp instanceof JTextField && comp.getName() != null) {
+                compList.add(comp);
+                System.out.println(compList);
+            } else if (comp instanceof JCheckBox && comp.getName() != null) {
+                compList.add(comp);
+                System.out.println(compList);
+            } else if (comp instanceof Container) {
+                compList.addAll(getAllComponents((Container) comp));
+                System.out.println(compList);
+            }
+        }
+        return compList;
 
+    }
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         controleAtualizacao();
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
-    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         EnderecoDAO ed = new EnderecoDAO();
@@ -353,10 +368,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         String str = String.valueOf(obj);
         e = ed.consultarID(Integer.parseInt(str));
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
-        if(confirma == JOptionPane.YES_OPTION){
-        d.excluir(e);
-        JOptionPane.showMessageDialog(null, "Registro excluído!");
-        }else{
+        if (confirma == JOptionPane.YES_OPTION) {
+            d.excluir(e);
+            JOptionPane.showMessageDialog(null, "Registro excluído!");
+        } else {
             JOptionPane.showMessageDialog(null, "Erro ao excluir registro");
         }
         new EnderecoDAO().popularTabela(tblEndereco, title);
@@ -387,10 +402,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSair1ActionPerformed
 
-    private void btnSairConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairConsultaActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSairConsultaActionPerformed
-
     private void tfdNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNumeroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdNumeroActionPerformed
@@ -399,13 +410,17 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdEstadoActionPerformed
 
+    private void btnSairManutencao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairManutencao1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSairManutencao1ActionPerformed
+
     private void statusCampos(boolean status) {
         tfdEstado.setEnabled(status);
         tfdCidade.setEnabled(status);
         tfdRua.setEnabled(status);
         tfdNumero.setEnabled(status);
     }
-    
+
     private void controleAtualizacao() {
         switch (status) {
             case 0:
@@ -418,14 +433,14 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                 TratarCampos.trataObrigatorios(tfdNumero);
                 status++;
                 tfdEstado.requestFocus();
-                
+
                 break;
             case 1:
-                
+
                 if (TratarCampos.verificaVazios(jPanel1)) {
                     System.out.println("entrei");
                     statusCampos(true);
-                    
+
                     DAO<Endereco> dao = new DAO<Endereco>();
                     Endereco e = new Endereco();
                     e.setEstado(tfdEstado.getText());
@@ -433,10 +448,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
                     e.setRua(tfdRua.getText());
                     e.setNumero(Integer.parseInt(tfdNumero.getText()));
                     e.setId(Integer.parseInt(tfdId.getText()));
-                    if(e.getId()==0){
+                    if (e.getId() == 0) {
                         dao.salvar(e);
                         new EnderecoDAO().popularTabela(tblEndereco, title);
-                    }else{
+                    } else {
                         dao.atualizar(e);
                         new EnderecoDAO().popularTabela(tblEndereco, title);
                     }
@@ -460,13 +475,11 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSair1;
-    private javax.swing.JButton btnSairConsulta;
     private javax.swing.JButton btnSairManutencao;
+    private javax.swing.JButton btnSairManutencao1;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -481,7 +494,6 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfdEstado;
     private javax.swing.JLabel tfdId;
     private javax.swing.JTextField tfdNumero;
-    private javax.swing.JTextField tfdPesquisar;
     private javax.swing.JTextField tfdRua;
     // End of variables declaration//GEN-END:variables
 }
