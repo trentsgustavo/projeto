@@ -9,12 +9,9 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import entidades.Permissoes;
 import hibernate.HibernateUtil;
 import javax.swing.table.TableColumn;
-import org.hibernate.Query;
-import dao.DAO;
 import org.hibernate.HibernateException;
 
 public class PermissoesDAO {
@@ -42,11 +39,11 @@ public class PermissoesDAO {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[4];
+        Object[] cabecalho = new Object[3];
         cabecalho[0] = "Id";
         cabecalho[1] = "Descrição";
         cabecalho[2] = "Telas ID";
-        cabecalho[3] = "Situação";
+ 
 
         // cria matriz de acordo com nº de registros da tabela
         List resultado = null;
@@ -58,14 +55,13 @@ public class PermissoesDAO {
             resultado = q.list();
             System.out.println("tamanho:" + resultado.size());
 
-            dadosTabela = new Object[resultado.size()][4];
+            dadosTabela = new Object[resultado.size()][3];
 
             for (Object o : resultado) {
                 Permissoes p = (Permissoes) o;
                 dadosTabela[lin][0] = p.getId();
                 dadosTabela[lin][1] = p.getDescricao();
                 dadosTabela[lin][2] = p.getTelasId();
-                dadosTabela[lin][3] = p.getSituacao();
 
                 lin++;
             }
