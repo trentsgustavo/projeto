@@ -46,7 +46,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
         getAllComponents(this);
-        new DAO().definirPermissoes(this,4);
+        new DAO().definirPermissoes(this);
         Container tela =this;
     }
 

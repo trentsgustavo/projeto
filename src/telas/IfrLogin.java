@@ -155,6 +155,7 @@ public class IfrLogin extends javax.swing.JFrame {
         System.out.println("Objeto: " + u.getUsuario());
 
         if (u.getSenha().equals(tfdSenha.getText())) {
+            System.setProperty("usuario", u.getId()+"");
             if (u.getFuncoesId() == 1) {
                 JanelaPrincipal frmPrinc = new JanelaPrincipal();
                 frmPrinc.setVisible(true);

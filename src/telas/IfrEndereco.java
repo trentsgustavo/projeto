@@ -50,7 +50,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         new EnderecoDAO().popularTabela(tblEndereco, title);
         statusCampos(false);
         tfdId.setVisible(false);
-        new DAO().definirPermissoes(this , 1);
+        new DAO().definirPermissoes(this);
         
 
     }

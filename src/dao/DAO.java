@@ -76,7 +76,7 @@ public class DAO<T> {
         }
     }
 
-    public void definirPermissoes(Container tela, int id) {
+    public void definirPermissoes(Container tela) {
         List<Component> componentList = new ArrayList<Component>();
         componentList = getAllComponents(tela);
         System.out.println(componentList = getAllComponents(tela));
@@ -87,25 +87,18 @@ public class DAO<T> {
                 + " left join permissoes pe on (up.permissoes_id = pe.id)"
                 + " left join telas tl on (pe.telas_id = tl.id)"
                 + " where tl.descricao = '" + tela.getName() + "'"
-                + " and up.usuarios_id = " + id).list();
+                + " and up.usuarios_id = " + System.getProperty("usuario")).list();
 
         for (int j = 0; j < componentList.size(); j++) {
             System.out.println(tela.getName());
-            //System.out.println("primeiro for");
             for (Object[] o : resultado) {
-                //  System.out.println("segundo for");
                 if (componentList.get(j).getName().equals(o[0].toString())) {
-                    //System.out.println(componentList.get(j));
-                    //System.out.println("aquiiiiiiiiiii");
 
                     componentList.get(j).setEnabled(false);
-                    System.out.println("sads");
                 }
 
             }
         }
-        tela.setVisible(false);
-        JOptionPane.showMessageDialog(tela, "Você não tem permissão para esta tela!");
 
     }
     

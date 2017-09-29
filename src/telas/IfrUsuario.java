@@ -56,7 +56,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         btnPessoa.setEnabled(false);
         btnPessoa.setIcon(new ImageIcon(getClass().getResource("/icons/lupa.jpg")));
         getAllComponents(this);
-        new DAO().definirPermissoes(this,4);
+        new DAO().definirPermissoes(this);
         Container tela =this;
     }
 
