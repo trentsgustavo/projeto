@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -90,7 +89,6 @@ public class DAO<T> {
                 + " and up.usuarios_id = " + System.getProperty("usuario")).list();
 
         for (int j = 0; j < componentList.size(); j++) {
-            System.out.println(tela.getName());
             for (Object[] o : resultado) {
                 if (componentList.get(j).getName().equals(o[0].toString())) {
 

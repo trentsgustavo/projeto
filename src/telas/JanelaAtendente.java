@@ -77,7 +77,7 @@ public class JanelaAtendente extends javax.swing.JFrame {
         jMenu7.setText("jMenu7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Agenda Barber - Sistema de barbearia");
+        setTitle("Transports - Gerenciamento de cargas");
 
         jToolBar1.setRollover(true);
 

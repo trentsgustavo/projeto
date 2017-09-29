@@ -9,22 +9,10 @@ import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
 import dao.EnderecoDAO;
-import dao.UsuarioDAO;
-import dao.Usuarios_has_permissoesDAO;
 import entidades.Endereco;
-import entidades.Permissoes;
-import entidades.Usuarios;
-import entidades.Usuarios_has_permissoes;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -48,11 +36,10 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         btnSalvar.setText(templateTitulos.getBtnNovo());
         new EnderecoDAO().popularTabela(tblEndereco, title);
+        btnCancelar.setEnabled(false);
         statusCampos(false);
         tfdId.setVisible(false);
         new DAO().definirPermissoes(this);
-        
-
     }
 
     /**
@@ -340,27 +327,7 @@ public class IfrEndereco extends javax.swing.JInternalFrame {
     private void btnSairManutencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairManutencaoActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairManutencaoActionPerformed
-    public static List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            if (comp instanceof JButton && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JTextField && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JCheckBox && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof Container) {
-                compList.addAll(getAllComponents((Container) comp));
-                System.out.println(compList);
-            }
-        }
-        return compList;
-
-    }
+   
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         controleAtualizacao();
     }//GEN-LAST:event_btnSalvarActionPerformed

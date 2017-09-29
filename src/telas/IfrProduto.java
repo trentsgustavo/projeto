@@ -51,6 +51,7 @@ public class IfrProduto extends javax.swing.JInternalFrame {
         statusCampos(false);
         //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
+        btnCancelar.setEnabled(false);
         new DAO().definirPermissoes(this);
     }
     

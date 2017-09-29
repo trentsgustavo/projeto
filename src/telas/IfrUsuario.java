@@ -15,18 +15,10 @@ import dao.UsuarioDAO;
 import entidades.Funcoes;
 import entidades.Pessoas;
 import entidades.Usuarios;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import static telas.IfrCaminhao.getAllComponents;
 
 /**
  *
@@ -55,9 +47,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         tfdId.setVisible(false);
         btnPessoa.setEnabled(false);
         btnPessoa.setIcon(new ImageIcon(getClass().getResource("/icons/lupa.jpg")));
-        getAllComponents(this);
         new DAO().definirPermissoes(this);
-        Container tela =this;
     }
 
     /**
@@ -393,27 +383,7 @@ public class IfrUsuario extends javax.swing.JInternalFrame {
         btnSalvar.setText(templateTitulos.getBtnAtualizar());
         new UsuarioDAO().popularTabela(tblUsuario, title);
     }//GEN-LAST:event_btnEditarActionPerformed
-public static List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            if (comp instanceof JButton && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JTextField && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JCheckBox && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof Container) {
-                compList.addAll(getAllComponents((Container) comp));
-                System.out.println(compList);
-            }
-        }
-        return compList;
-         
-    }
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
     }//GEN-LAST:event_btnCancelarActionPerformed

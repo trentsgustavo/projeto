@@ -13,18 +13,10 @@ import dao.PessoaDAO;
 import dao.ProdutosDAO;
 import entidades.Endereco;
 import entidades.Pessoas;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import static telas.IfrCaminhao.getAllComponents;
 
 /**
  *
@@ -50,9 +42,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
         tfdId.setVisible(false);
         btnCliente.setEnabled(false);
         btnCliente.setIcon(new ImageIcon(getClass().getResource("/icons/lupa.jpg")));
-        getAllComponents(this);
         new DAO().definirPermissoes(this);
-        Container tela =this;
     }
 
     @SuppressWarnings("unchecked")
@@ -365,27 +355,7 @@ public class IfrPessoa extends javax.swing.JInternalFrame {
 
         controleAtualizacao();
     }//GEN-LAST:event_btnSalvarActionPerformed
- public static List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            if (comp instanceof JButton && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JTextField && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JCheckBox && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof Container) {
-                compList.addAll(getAllComponents((Container) comp));
-                System.out.println(compList);
-            }
-        }
-        return compList;
-         
-    }
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         PessoaDAO pes = new PessoaDAO();
         Pessoas p = new Pessoas();

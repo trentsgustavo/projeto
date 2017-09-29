@@ -45,9 +45,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         statusCampos(false);
         btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
-        getAllComponents(this);
         new DAO().definirPermissoes(this);
-        Container tela =this;
     }
 
     @SuppressWarnings("unchecked")
@@ -103,6 +101,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setTitle("Cadastro - Caminhões");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setName("IfrCaminhao"); // NOI18N
 
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 400));
 
@@ -145,7 +144,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
         btnSair2.setText("Sair");
         btnSair2.setMaximumSize(new java.awt.Dimension(90, 25));
         btnSair2.setMinimumSize(new java.awt.Dimension(90, 25));
-        btnSair2.setName("btnSair"); // NOI18N
+        btnSair2.setName("btnSair2"); // NOI18N
         btnSair2.setPreferredSize(new java.awt.Dimension(90, 25));
         btnSair2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,27 +341,7 @@ public class IfrCaminhao extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         controleAtualizacao();
     }//GEN-LAST:event_btnSalvarActionPerformed
-public static List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            if (comp instanceof JButton && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JTextField && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JCheckBox && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof Container) {
-                compList.addAll(getAllComponents((Container) comp));
-                System.out.println(compList);
-            }
-        }
-        return compList;
-         
-    }
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         CaminhaoDAO pcam = new CaminhaoDAO();
         Caminhao c = new Caminhao();
