@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class IfrPesquisaTela extends javax.swing.JDialog {
 
-    IfrRestricoes cp;
+    IfrCampos cp;
 
     public IfrPesquisaTela(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public IfrPesquisaTela(java.awt.Frame parent, boolean modal, IfrRestricoes cper) {
+    public IfrPesquisaTela(java.awt.Frame parent, boolean modal, IfrCampos cper) {
         initComponents();
         this.cp = cper;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

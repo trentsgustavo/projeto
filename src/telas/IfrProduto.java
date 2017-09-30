@@ -11,7 +11,6 @@ import dao.DAO;
 import dao.ProdutosDAO;
 import dao.UsuarioDAO;
 import dao.TelasDAO;
-import dao.Usuarios_has_permissoesDAO;
 import entidades.Permissoes;
 import entidades.Produtos;
 import entidades.Usuarios;

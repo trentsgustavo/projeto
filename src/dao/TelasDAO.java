@@ -58,10 +58,10 @@ public class TelasDAO {
             dadosTabela = new Object[resultado.size()][3];
 
             for (Object o : resultado) {
-                Funcoes f = (Funcoes) o;
+                Telas f = (Telas) o;
                 dadosTabela[lin][0] = f.getId();
                 dadosTabela[lin][1] = f.getDescricao();
-                dadosTabela[lin][3] = f.getSituacao();
+                dadosTabela[lin][2] = f.getSituacao();
                 lin++;
             }
 
