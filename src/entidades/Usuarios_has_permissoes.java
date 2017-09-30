@@ -9,13 +9,11 @@ public class Usuarios_has_permissoes {
  
     private int idUsuario;
     private int idPermissoes;
-    private boolean situacao;
     
 
     public Usuarios_has_permissoes(int idUsuario, int idCaminhao) {
         this.idUsuario = idUsuario;
         this.idPermissoes = idPermissoes;
-        this.situacao=situacao;
     }
 
     public Usuarios_has_permissoes() {
@@ -36,14 +34,6 @@ public class Usuarios_has_permissoes {
 
     public void setIdPermissoes(int idPermissoes) {
         this.idPermissoes = idPermissoes;
-    }
-
-    public boolean getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(boolean situacao) {
-        this.situacao = situacao;
     }
 
 }
