@@ -8,7 +8,7 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
-import dao.Usuarios_has_permissoesDAO;
+import dao.Usuarios_has_PermissoesDAO;
 import entidades.Telas;
 import entidades.Usuarios_has_permissoes;
 import hibernate.HibernateUtil;
@@ -33,7 +33,7 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
 
     int status;
     int codigo = 0;
-    Usuarios_has_permissoesDAO upDAO;
+    Usuarios_has_PermissoesDAO upDAO;
     Usuarios_has_permissoes up;
     
     public IfrRestricoes() {
@@ -204,7 +204,7 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
         //controleAtualizacao();
         
         Usuarios_has_permissoes up = new Usuarios_has_permissoes();
-        Usuarios_has_permissoesDAO upDAO = new Usuarios_has_permissoesDAO();
+        Usuarios_has_PermissoesDAO upDAO = new Usuarios_has_PermissoesDAO();
         
         DAO<Usuarios_has_permissoes> dao = new DAO<Usuarios_has_permissoes>();
         
@@ -252,11 +252,11 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
                     if (e.getPermissoesId()== 0 && e.getUsuariosId()==0) {
                         System.out.println("salvei");
                         dao.salvar(e);
-                        new Usuarios_has_permissoesDAO().popularTabela(tblRestricoes, title);
+                        new Usuarios_has_PermissoesDAO().popularTabela(tblRestricoes, title);
                     } else {
                         System.out.println("atualizei");
                         dao.atualizar(e);
-                        new Usuarios_has_permissoesDAO().popularTabela(tblRestricoes, title);
+                        new Usuarios_has_PermissoesDAO().popularTabela(tblRestricoes, title);
                     }
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
                     TratarCampos.limparCampos(jPanel1);

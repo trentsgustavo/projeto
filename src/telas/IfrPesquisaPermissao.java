@@ -7,7 +7,7 @@ package telas;
 
 import dao.PermissoesDAO;
 import dao.PessoaDAO;
-import dao.Usuarios_has_permissoesDAO;
+import dao.Usuarios_has_PermissoesDAO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
