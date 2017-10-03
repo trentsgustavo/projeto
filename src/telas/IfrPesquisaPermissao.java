@@ -5,8 +5,9 @@
  */
 package telas;
 
+import dao.PermissoesDAO;
 import dao.PessoaDAO;
-import dao.Usuarios_has_PermissoesDAO;
+import dao.Usuarios_has_permissoesDAO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -28,9 +29,9 @@ public class IfrPesquisaPermissao extends javax.swing.JDialog {
         this.r = rest;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        Usuarios_has_PermissoesDAO up;
-        up = new Usuarios_has_PermissoesDAO();
-        up.popularTabela(tblRestricoes, "");
+        PermissoesDAO p;
+        p = new PermissoesDAO();
+        p.popularTabela(tblRestricoes, "");
     }
 
     /**

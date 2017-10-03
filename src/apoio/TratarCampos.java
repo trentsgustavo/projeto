@@ -36,11 +36,9 @@ public class TratarCampos {
 
     public static boolean verificaVazios(Container container) {
         Component c[] = container.getComponents();
-        System.out.println("aqui");
         for (int i = 0; i < c.length; i++) {
             if (c[i] instanceof JTextField) {
                 JTextField field = (JTextField) c[i];
-                System.out.println("aqui2");
                 if (field.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(container, "Existem campos obrigatórios em branco");
                     field.requestFocus();

@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Permissoes.findAll", query = "SELECT p FROM Permissoes p"),
     @NamedQuery(name = "Permissoes.findById", query = "SELECT p FROM Permissoes p WHERE p.id = :id"),
-    @NamedQuery(name = "Permissoes.findByDescricao", query = "SELECT p FROM Permissoes p WHERE p.descricao = :descricao"),
-    @NamedQuery(name = "Permissoes.findBySituacao", query = "SELECT p FROM Permissoes p WHERE p.situacao = :situacao")})
+    @NamedQuery(name = "Permissoes.findByDescricao", query = "SELECT p FROM Permissoes p WHERE p.descricao = :descricao")
+    })
 public class Permissoes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,9 +41,6 @@ public class Permissoes implements Serializable {
     private Integer id;
     @Column(name = "descricao")
     private String descricao;
-    @Basic(optional = false)
-    @Column(name = "situacao")
-    private boolean situacao;
     @JoinColumn(name = "telas_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Telas telasId;
@@ -57,7 +54,6 @@ public class Permissoes implements Serializable {
 
     public Permissoes(Integer id, boolean situacao) {
         this.id = id;
-        this.situacao = situacao;
     }
 
     public Integer getId() {
@@ -74,14 +70,6 @@ public class Permissoes implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public boolean getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(boolean situacao) {
-        this.situacao = situacao;
     }
 
     public Telas getTelasId() {

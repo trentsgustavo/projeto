@@ -16,4 +16,5 @@
   <table-filter match-name="usuarios"/>
   <table-filter match-name="carga"/>
   <table-filter match-name="caminhao"/>
+  <table-filter match-name="usuarios_has_permissoes"/>
 </hibernate-reverse-engineering>

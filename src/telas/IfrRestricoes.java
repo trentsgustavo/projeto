@@ -5,7 +5,12 @@
  */
 package telas;
 
+import apoio.TratarCampos;
+import apoio.templateTitulos;
+import dao.DAO;
+import dao.Usuarios_has_permissoesDAO;
 import entidades.Telas;
+import entidades.Usuarios_has_permissoes;
 import hibernate.HibernateUtil;
 import java.awt.Component;
 import java.awt.Container;
@@ -13,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -25,9 +31,11 @@ import org.hibernate.Session;
  */
 public class IfrRestricoes extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form IfrRestricoes
-     */
+    int status;
+    int codigo = 0;
+    Usuarios_has_permissoesDAO upDAO;
+    Usuarios_has_permissoes up;
+    
     public IfrRestricoes() {
         initComponents();
     }
@@ -41,33 +49,18 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfdTela = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        tfdUsuario = new javax.swing.JTextField();
-        btnPessoa = new javax.swing.JButton();
-        btnPessoa1 = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblRestricoes = new javax.swing.JTable();
         btnSalvar = new javax.swing.JButton();
-
-        jLabel1.setText("* Permissão:");
-
-        jLabel2.setText("* Usuário:");
-
-        btnPessoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPessoaActionPerformed(evt);
-            }
-        });
-
-        btnPessoa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPessoa1ActionPerformed(evt);
-            }
-        });
+        jPanel1 = new javax.swing.JPanel();
+        btnPessoa1 = new javax.swing.JButton();
+        btnPessoa = new javax.swing.JButton();
+        tfdPermissao = new javax.swing.JTextField();
+        tfdUsuario = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +71,7 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
 
         btnAtualizar.setText("Atualizar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblRestricoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -89,72 +82,103 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblRestricoes);
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnPessoa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPessoa1ActionPerformed(evt);
+            }
+        });
+
+        btnPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPessoaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("* Permissão:");
+
+        jLabel2.setText("* Usuário:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfdPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(134, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfdPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAtualizar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSalvar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(86, 86, 86)
-                                .addComponent(tfdTela, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSair)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAtualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSair)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(tfdTela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnPessoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtualizar)
                     .addComponent(btnSair)
                     .addComponent(btnSalvar))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,8 +200,22 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        //controleAtualizacao();
+        
+        Usuarios_has_permissoes up = new Usuarios_has_permissoes();
+        Usuarios_has_permissoesDAO upDAO = new Usuarios_has_permissoesDAO();
+        
+        DAO<Usuarios_has_permissoes> dao = new DAO<Usuarios_has_permissoes>();
+        
+        up.setPermissoesId(Integer.parseInt(tfdPermissao.getText()));
+        up.setUsuariosId(Integer.parseInt(tfdUsuario.getText()));
+        
+        dao.salvar(up);
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
     void pegaIdDlg(String codigo) {
-        tfdTela.setText(codigo);
+        tfdPermissao.setText(codigo);
         System.out.println(codigo);
     }
     
@@ -185,100 +223,50 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
         tfdUsuario.setText(codigo);
         System.out.println(codigo);
     }
-    
-    public static List<Component> getAllComponents(final Container c) {
-        Component[] comps = c.getComponents();
-        List<Component> compList = new ArrayList<Component>();
-        for (Component comp : comps) {
-            if (comp instanceof JButton && comp.getName() != null) {
-                compList.add(comp);
-                System.out.println(compList);
-            } else if (comp instanceof JTextField && comp.getName() != null) {
-                compList.add(comp);
-                //System.out.println(compList);
-            } else if (comp instanceof JCheckBox && comp.getName() != null) {
-                compList.add(comp);
-                //System.out.println(compList);
-            } else if (comp instanceof Container) {
-                compList.addAll(getAllComponents((Container) comp));
-                //System.out.println(compList);
-            }
-        }
-        return compList;
+        
+    private void statusCampos(boolean status) {
+        tfdPermissao.setEnabled(status);
+        tfdUsuario.setEnabled(status);
     }
-    
-    public void popularTabela(JTable tabela, String criterio) {
-        // dados da tabela
-        Object[][] dadosTabela = null;
 
-        // cabecalho da tabela
-        Object[] cabecalho = new Object[3];
-        cabecalho[0] = "Id";
-        cabecalho[1] = "Descrição";
-        cabecalho[2] = "Situação";
+    private void controleAtualizacao() {
+        switch (status) {
+            case 0:
+                statusCampos(true);
+                btnSalvar.setText(templateTitulos.getBtnSalvar());
+                TratarCampos.trataObrigatorios(tfdPermissao);
+                TratarCampos.trataObrigatorios(tfdUsuario);
+                status++;
 
-        // cria matriz de acordo com nº de registros da tabela
-        List resultado = null;
-        int lin = 0;
-        try {
-            Session sessao = HibernateUtil.getSessionFactory().openSession();
-            sessao.beginTransaction();
-            org.hibernate.Query q = sessao.createQuery("from Telas");
-            resultado = q.list();
-            System.out.println("tamanho:" + resultado.size());
+                break;
+            case 1:
 
-            dadosTabela = new Object[resultado.size()][3];
+                if (TratarCampos.verificaVazios(jPanel1)) {
+                    System.out.println("entrei");
+                    statusCampos(true);
 
-            for (Object o : resultado) {
-                Telas f = (Telas) o;
-                dadosTabela[lin][0] = f.getId();
-                dadosTabela[lin][1] = f.getDescricao();
-                dadosTabela[lin][2] = f.getSituacao();
-                lin++;
-            }
-
-        } catch (Exception e) {
-            System.out.println("problemas para popular tabela...");
-            System.out.println(e);
-        }
-        // configuracoes adicionais no componente tabela
-        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
-            @Override
-            // quando retorno for FALSE, a tabela nao é editavel
-            public boolean isCellEditable(int row, int column) {
-                return false;
-
-            }
-
-            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
-            @Override
-            public Class getColumnClass(int column) {
-
-                if (column == 2) {
-//                    return ImageIcon.class;
+                    DAO<Usuarios_has_permissoes> dao = new DAO<Usuarios_has_permissoes>();
+                    Usuarios_has_permissoes e = new Usuarios_has_permissoes();
+                    e.setPermissoesId(Integer.parseInt(tfdPermissao.getText()));
+                    e.setUsuariosId(Integer.parseInt(tfdUsuario.getText()));
+                    if (e.getPermissoesId()== 0 && e.getUsuariosId()==0) {
+                        System.out.println("salvei");
+                        dao.salvar(e);
+                        new Usuarios_has_permissoesDAO().popularTabela(tblRestricoes, title);
+                    } else {
+                        System.out.println("atualizei");
+                        dao.atualizar(e);
+                        new Usuarios_has_permissoesDAO().popularTabela(tblRestricoes, title);
+                    }
+                    JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
+                    TratarCampos.limparCampos(jPanel1);
+                    btnSalvar.setText(templateTitulos.getBtnNovo());
+                    statusCampos(false);
                 }
-                return Object.class;
-            }
-        });
-
-        // permite seleção de apenas uma linha da tabela
-        tabela.setSelectionMode(0);
-
-        // redimensiona as colunas de uma tabela
-        TableColumn column = null;
-        for (int i = 0; i < tabela.getColumnCount(); i++) {
-            column = tabela.getColumnModel().getColumn(i);
-            switch (i) {
-                case 0:
-                    column.setPreferredWidth(17);
-                    break;
-                case 1:
-                    column.setPreferredWidth(140);
-                    break;
-//                case 2:
-//                    column.setPreferredWidth(14);
-//                    break;
-                }
+                status = 0;
+                break;
+            default:
+                break;
         }
     }
 
@@ -291,9 +279,10 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField tfdTela;
+    private javax.swing.JTable tblRestricoes;
+    private javax.swing.JTextField tfdPermissao;
     private javax.swing.JTextField tfdUsuario;
     // End of variables declaration//GEN-END:variables
 }
