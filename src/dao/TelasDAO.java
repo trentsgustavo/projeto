@@ -110,9 +110,9 @@ public class TelasDAO {
         }
     }
 
-    public Funcoes consultarID(int id) {
+    public Telas consultarID(int id) {
         List resultado = null;
-        Funcoes s = null;
+        Telas s = null;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
 
@@ -122,7 +122,7 @@ public class TelasDAO {
             resultado = q.list();
 
             for (Object o : resultado) {
-                s = (Funcoes) o;
+                s = (Telas) o;
             }
 
         } catch (HibernateException he) {

@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class IfrPesquisaTela extends javax.swing.JDialog {
 
-    IfrCampos cp;
+    IfrPermissoes cp;
 
     public IfrPesquisaTela(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public IfrPesquisaTela(java.awt.Frame parent, boolean modal, IfrCampos cper) {
+    public IfrPesquisaTela(java.awt.Frame parent, boolean modal, IfrPermissoes cper) {
         initComponents();
         this.cp = cper;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -48,9 +48,9 @@ public class IfrPesquisaTela extends javax.swing.JDialog {
         btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pesquisar Cidade");
+        setTitle("Pesquisar Tela");
 
-        lblSelecionarLocalizacao.setText("Selecione a Pessoa:");
+        lblSelecionarLocalizacao.setText("Selecione a Tela:");
 
         tblTelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -129,7 +129,7 @@ public class IfrPesquisaTela extends javax.swing.JDialog {
             cp.pegaIdDlg(String.valueOf(tblTelas.getValueAt(tblTelas.getSelectedRow(), 0)));
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Você deve primeiro selecionar uma Função!");
+            JOptionPane.showMessageDialog(this, "Você deve primeiro selecionar uma Tela!");
         }
     }//GEN-LAST:event_tbnOkActionPerformed
 
@@ -158,6 +158,8 @@ public class IfrPesquisaTela extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(IfrPesquisaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         
