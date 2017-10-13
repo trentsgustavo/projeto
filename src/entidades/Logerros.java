@@ -6,7 +6,6 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,8 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Logerros.findAll", query = "SELECT l FROM Logerros l"),
     @NamedQuery(name = "Logerros.findById", query = "SELECT l FROM Logerros l WHERE l.id = :id"),
     @NamedQuery(name = "Logerros.findByDescricao", query = "SELECT l FROM Logerros l WHERE l.descricao = :descricao"),
-    @NamedQuery(name = "Logerros.findByData", query = "SELECT l FROM Logerros l WHERE l.data = :data"),
-    @NamedQuery(name = "Logerros.findByHora", query = "SELECT l FROM Logerros l WHERE l.hora = :hora")})
+    @NamedQuery(name = "Logerros.findByDatatime", query = "SELECT l FROM Logerros l WHERE l.datatime = :datatime")})
 public class Logerros implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,16 +43,11 @@ public class Logerros implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @Basic(optional = false)
-    @Column(name = "data")
-    @Temporal(TemporalType.DATE)
-    private Date data;
-    @Basic(optional = false)
-    @Column(name = "hora")
-    @Temporal(TemporalType.TIME)
-    private Date hora;
-    @JoinColumn(name = "pessoas_id", referencedColumnName = "id")
+    @Column(name = "datatime")
+    private String datatime;
+    @JoinColumn(name = "usuarios_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Pessoas pessoasId;
+    private Usuarios usuariosId;
 
     public Logerros() {
     }
@@ -65,11 +56,10 @@ public class Logerros implements Serializable {
         this.id = id;
     }
 
-    public Logerros(Integer id, String descricao, Date data, Date hora) {
+    public Logerros(Integer id, String descricao, String datatime) {
         this.id = id;
         this.descricao = descricao;
-        this.data = data;
-        this.hora = hora;
+        this.datatime = datatime;
     }
 
     public Integer getId() {
@@ -88,28 +78,20 @@ public class Logerros implements Serializable {
         this.descricao = descricao;
     }
 
-    public Date getData() {
-        return data;
+    public String getDatatime() {
+        return datatime;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDatatime(String datatime) {
+        this.datatime = datatime;
     }
 
-    public Date getHora() {
-        return hora;
+    public Usuarios getUsuariosId() {
+        return usuariosId;
     }
 
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
-
-    public Pessoas getPessoasId() {
-        return pessoasId;
-    }
-
-    public void setPessoasId(Pessoas pessoasId) {
-        this.pessoasId = pessoasId;
+    public void setUsuariosId(Usuarios usuariosId) {
+        this.usuariosId = usuariosId;
     }
 
     @Override

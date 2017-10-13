@@ -6,7 +6,9 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuarios.findBySenha", query = "SELECT u FROM Usuarios u WHERE u.senha = :senha"),
     @NamedQuery(name = "Usuarios.findBySituacao", query = "SELECT u FROM Usuarios u WHERE u.situacao = :situacao")})
 public class Usuarios implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosId")
+    private Collection<Auditoria> auditoriaCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosId")
+    private Collection<Logerros> logerrosCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -143,6 +153,24 @@ public class Usuarios implements Serializable {
     @Override
     public String toString() {
         return "entidades.Usuarios[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Logerros> getLogerrosCollection() {
+        return logerrosCollection;
+    }
+
+    public void setLogerrosCollection(Collection<Logerros> logerrosCollection) {
+        this.logerrosCollection = logerrosCollection;
+    }
+
+    @XmlTransient
+    public Collection<Auditoria> getAuditoriaCollection() {
+        return auditoriaCollection;
+    }
+
+    public void setAuditoriaCollection(Collection<Auditoria> auditoriaCollection) {
+        this.auditoriaCollection = auditoriaCollection;
     }
     
 }

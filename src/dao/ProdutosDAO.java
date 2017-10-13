@@ -15,7 +15,7 @@ import hibernate.HibernateUtil;
 import javax.swing.table.TableColumn;
 import org.hibernate.Query;
 import dao.DAO;
-import entidades.Endereco;
+import entidades.Usuarios;
 import org.hibernate.HibernateException;
 
 public class ProdutosDAO {
@@ -23,6 +23,7 @@ public class ProdutosDAO {
     public List<Object> consultarTodos() {
         List resultado = null;
         Produtos prod = new Produtos();
+        Usuarios us = new Usuarios();
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
@@ -31,6 +32,7 @@ public class ProdutosDAO {
             sessao.close();
             return resultado;
         } catch (Exception he) {
+             LogErroDAO.salvarLog(he, us);
             System.out.println("erro ao consultar");
             //he.printStackTrace();
         }

@@ -43,18 +43,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jcaminhao = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jprodutos = new javax.swing.JMenuItem();
         jUsuario = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         ListCadastroPromocoes = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         listagem_produtos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuSistema = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         menuItemSair = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,14 +134,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
-        jMenuItem7.setText("Permissões");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem7);
-
         jMenuItem2.setText("Pessoas");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,14 +157,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jUsuario);
-
-        jMenuItem5.setText("Restrições");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
@@ -212,6 +198,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         menuSistema.setText("Sistema");
 
+        jMenuItem8.setText("Conf. Auditoria");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        menuSistema.add(jMenuItem8);
+
         menuItemSair.setText("Sair");
         menuItemSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +215,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         menuSistema.add(menuItemSair);
 
         jMenuBar1.add(menuSistema);
+
+        jMenu2.setText("Conf. Permissões");
+
+        jMenuItem7.setText("Restrição x Campos");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
+
+        jMenuItem5.setText("Restrições x Usuário");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -313,6 +327,12 @@ IfrPermissoes perm = new IfrPermissoes();
         telaRestricoes.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        IfrConfiguracoes config = new IfrConfiguracoes();
+        jDesktopPane1.add(config);
+        config.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -321,6 +341,7 @@ IfrPermissoes perm = new IfrPermissoes();
     private javax.swing.JMenuItem ListCadastroPromocoes;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -334,6 +355,7 @@ IfrPermissoes perm = new IfrPermissoes();
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;

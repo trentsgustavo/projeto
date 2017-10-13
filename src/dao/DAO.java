@@ -17,6 +17,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import entidades.Usuarios;
 
 
 public class DAO<T> {
@@ -27,14 +28,17 @@ public class DAO<T> {
     public void salvar(Object object) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transacion = null;
+          Usuarios us = new Usuarios();
         try {
             transacion = session.beginTransaction();
             session.save(object);
             transacion.commit();
             System.out.println("Deu certo");
+            AuditoriaDAO.salvarSalvou(object, us);
         } catch (HibernateException e) {
             transacion.rollback();
             e.printStackTrace();
+            LogErroDAO.salvarLog(e, us);
             System.out.println("Deu erro");
         } finally {
             session.close();

@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pessoas.findBySituacao", query = "SELECT p FROM Pessoas p WHERE p.situacao = :situacao")})
 public class Pessoas implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoasId")
+    private Collection<Usuarios> usuariosCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,14 +71,6 @@ public class Pessoas implements Serializable {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Endereco enderecoId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoasId")
-    private Collection<Pedido> pedidoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoasId")
-    private Collection<Usuarios> usuariosCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoasId")
-    private Collection<Auditoria> auditoriaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoasId")
-    private Collection<Logerros> logerrosCollection;
 
     public Pessoas() {
     }
@@ -158,42 +153,6 @@ public class Pessoas implements Serializable {
         this.enderecoId = enderecoId;
     }
 
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
-    }
-
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Usuarios> getUsuariosCollection() {
-        return usuariosCollection;
-    }
-
-    public void setUsuariosCollection(Collection<Usuarios> usuariosCollection) {
-        this.usuariosCollection = usuariosCollection;
-    }
-
-    @XmlTransient
-    public Collection<Auditoria> getAuditoriaCollection() {
-        return auditoriaCollection;
-    }
-
-    public void setAuditoriaCollection(Collection<Auditoria> auditoriaCollection) {
-        this.auditoriaCollection = auditoriaCollection;
-    }
-
-    @XmlTransient
-    public Collection<Logerros> getLogerrosCollection() {
-        return logerrosCollection;
-    }
-
-    public void setLogerrosCollection(Collection<Logerros> logerrosCollection) {
-        this.logerrosCollection = logerrosCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -217,6 +176,15 @@ public class Pessoas implements Serializable {
     @Override
     public String toString() {
         return "entidades.Pessoas[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Usuarios> getUsuariosCollection() {
+        return usuariosCollection;
+    }
+
+    public void setUsuariosCollection(Collection<Usuarios> usuariosCollection) {
+        this.usuariosCollection = usuariosCollection;
     }
     
 }

@@ -6,7 +6,6 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,8 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Auditoria.findAll", query = "SELECT a FROM Auditoria a"),
     @NamedQuery(name = "Auditoria.findById", query = "SELECT a FROM Auditoria a WHERE a.id = :id"),
     @NamedQuery(name = "Auditoria.findByDescricao", query = "SELECT a FROM Auditoria a WHERE a.descricao = :descricao"),
-    @NamedQuery(name = "Auditoria.findByData", query = "SELECT a FROM Auditoria a WHERE a.data = :data"),
-    @NamedQuery(name = "Auditoria.findByHora", query = "SELECT a FROM Auditoria a WHERE a.hora = :hora"),
+    @NamedQuery(name = "Auditoria.findByDatatime", query = "SELECT a FROM Auditoria a WHERE a.datatime = :datatime"),
     @NamedQuery(name = "Auditoria.findByAtivaauditoria", query = "SELECT a FROM Auditoria a WHERE a.ativaauditoria = :ativaauditoria")})
 public class Auditoria implements Serializable {
 
@@ -48,19 +44,14 @@ public class Auditoria implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @Basic(optional = false)
-    @Column(name = "data")
-    @Temporal(TemporalType.DATE)
-    private Date data;
-    @Basic(optional = false)
-    @Column(name = "hora")
-    @Temporal(TemporalType.TIME)
-    private Date hora;
+    @Column(name = "datatime")
+    private String datatime;
     @Basic(optional = false)
     @Column(name = "ativaauditoria")
-    private String ativaauditoria;
-    @JoinColumn(name = "pessoas_id", referencedColumnName = "id")
+    private boolean ativaauditoria;
+    @JoinColumn(name = "usuarios_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Pessoas pessoasId;
+    private Usuarios usuariosId;
 
     public Auditoria() {
     }
@@ -69,11 +60,10 @@ public class Auditoria implements Serializable {
         this.id = id;
     }
 
-    public Auditoria(Integer id, String descricao, Date data, Date hora, String ativaauditoria) {
+    public Auditoria(Integer id, String descricao, String datatime, boolean ativaauditoria) {
         this.id = id;
         this.descricao = descricao;
-        this.data = data;
-        this.hora = hora;
+        this.datatime = datatime;
         this.ativaauditoria = ativaauditoria;
     }
 
@@ -93,36 +83,28 @@ public class Auditoria implements Serializable {
         this.descricao = descricao;
     }
 
-    public Date getData() {
-        return data;
+    public String getDatatime() {
+        return datatime;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDatatime(String datatime) {
+        this.datatime = datatime;
     }
 
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
-
-    public String getAtivaauditoria() {
+    public boolean getAtivaauditoria() {
         return ativaauditoria;
     }
 
-    public void setAtivaauditoria(String ativaauditoria) {
+    public void setAtivaauditoria(boolean ativaauditoria) {
         this.ativaauditoria = ativaauditoria;
     }
 
-    public Pessoas getPessoasId() {
-        return pessoasId;
+    public Usuarios getUsuariosId() {
+        return usuariosId;
     }
 
-    public void setPessoasId(Pessoas pessoasId) {
-        this.pessoasId = pessoasId;
+    public void setUsuariosId(Usuarios usuariosId) {
+        this.usuariosId = usuariosId;
     }
 
     @Override

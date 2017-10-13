@@ -11,16 +11,9 @@ import dao.DAO;
 import dao.CaminhaoDAO;
 import dao.ProdutosDAO;
 import entidades.Caminhao;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
