@@ -24,14 +24,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author gtren_000
  */
 @Entity
-@Table(name = "logerros")
+@Table(name = "usuarios_has_permissoes")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Logerros.findAll", query = "SELECT l FROM Logerros l"),
-    @NamedQuery(name = "Logerros.findById", query = "SELECT l FROM Logerros l WHERE l.id = :id"),
-    @NamedQuery(name = "Logerros.findByDescricao", query = "SELECT l FROM Logerros l WHERE l.descricao = :descricao"),
-    @NamedQuery(name = "Logerros.findByDatatime", query = "SELECT l FROM Logerros l WHERE l.datatime = :datatime")})
-public class Logerros implements Serializable {
+    @NamedQuery(name = "UsuariosHasPermissoes.findAll", query = "SELECT u FROM UsuariosHasPermissoes u"),
+    @NamedQuery(name = "UsuariosHasPermissoes.findById", query = "SELECT u FROM UsuariosHasPermissoes u WHERE u.id = :id"),
+    @NamedQuery(name = "UsuariosHasPermissoes.findBySituacao", query = "SELECT u FROM UsuariosHasPermissoes u WHERE u.situacao = :situacao")})
+public class UsuariosHasPermissoes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,26 +39,25 @@ public class Logerros implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "descricao")
-    private String descricao;
-    @Basic(optional = false)
-    @Column(name = "datatime")
-    private String datatime;
+    @Column(name = "situacao")
+    private boolean situacao;
+    @JoinColumn(name = "permissoes_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Permissoes permissoesId;
     @JoinColumn(name = "usuarios_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuarios usuariosId;
 
-    public Logerros() {
+    public UsuariosHasPermissoes() {
     }
 
-    public Logerros(Integer id) {
+    public UsuariosHasPermissoes(Integer id) {
         this.id = id;
     }
 
-    public Logerros(Integer id, String descricao, String datatime) {
+    public UsuariosHasPermissoes(Integer id, boolean situacao) {
         this.id = id;
-        this.descricao = descricao;
-        this.datatime = datatime;
+        this.situacao = situacao;
     }
 
     public Integer getId() {
@@ -70,20 +68,20 @@ public class Logerros implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public boolean getSituacao() {
+        return situacao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
     }
 
-    public String getDatatime() {
-        return datatime;
+    public Permissoes getPermissoesId() {
+        return permissoesId;
     }
 
-    public void setDatatime(String datatime) {
-        this.datatime = datatime;
+    public void setPermissoesId(Permissoes permissoesId) {
+        this.permissoesId = permissoesId;
     }
 
     public Usuarios getUsuariosId() {
@@ -104,10 +102,10 @@ public class Logerros implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Logerros)) {
+        if (!(object instanceof UsuariosHasPermissoes)) {
             return false;
         }
-        Logerros other = (Logerros) object;
+        UsuariosHasPermissoes other = (UsuariosHasPermissoes) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -116,7 +114,7 @@ public class Logerros implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Logerros[ id=" + id + " ]";
+        return "entidades.UsuariosHasPermissoes[ id=" + id + " ]";
     }
     
 }

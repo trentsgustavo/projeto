@@ -13,7 +13,7 @@ import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import entidades.Usuarios_has_permissoes;
+import entidades.UsuariosHasPermissoes;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Usuarios_has_PermissoesDAO {
     
     public List<Object> consultarTodos() {
         List resultado = null;
-        Usuarios_has_permissoes up = new Usuarios_has_permissoes();
+        UsuariosHasPermissoes up = new UsuariosHasPermissoes();
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
@@ -41,7 +41,7 @@ public class Usuarios_has_PermissoesDAO {
 
     public int contarTodos() {
         int resultado = 0;
-        Usuarios_has_permissoes prod = new Usuarios_has_permissoes();
+        UsuariosHasPermissoes prod = new UsuariosHasPermissoes();
         try {
             Session sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
@@ -62,7 +62,7 @@ public class Usuarios_has_PermissoesDAO {
         //inicializa variaveis necessarias
         String retorno = null;
         Session sessao = null;
-        Usuarios_has_permissoes up = (Usuarios_has_permissoes) o;
+        UsuariosHasPermissoes up = (UsuariosHasPermissoes) o;
         //Executa a inserção
 
         sessao = HibernateUtil.getSessionFactory().openSession();
@@ -103,7 +103,7 @@ public class Usuarios_has_PermissoesDAO {
             dadosTabela = new Object[resultado.size()][2];
 
             for (Object o : resultado) {
-                Usuarios_has_permissoes up = (Usuarios_has_permissoes) o;
+                UsuariosHasPermissoes up = (UsuariosHasPermissoes) o;
                 dadosTabela[lin][0] = up.getUsuariosId();
                 dadosTabela[lin][1] = up.getPermissoesId();
                 lin++;
@@ -154,9 +154,9 @@ public class Usuarios_has_PermissoesDAO {
         }
     }
 
-    public Usuarios_has_permissoes consultarID(int id) {
+    public UsuariosHasPermissoes consultarID(int id) {
         List resultado = null;
-        Usuarios_has_permissoes s = null;
+        UsuariosHasPermissoes s = null;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
 
@@ -166,7 +166,7 @@ public class Usuarios_has_PermissoesDAO {
             resultado = q.list();
 
             for (Object o : resultado) {
-                s = (Usuarios_has_permissoes) o;
+                s = (UsuariosHasPermissoes) o;
             }
 
         } catch (HibernateException he) {

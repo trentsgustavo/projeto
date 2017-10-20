@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuarios.findBySituacao", query = "SELECT u FROM Usuarios u WHERE u.situacao = :situacao")})
 public class Usuarios implements Serializable {
 
+    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosId")
     private Collection<Auditoria> auditoriaCollection;
 
@@ -52,9 +54,6 @@ public class Usuarios implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "funcoes_id")
-    private int funcoesId;
-    @Basic(optional = false)
     @Column(name = "usuario")
     private String usuario;
     @Basic(optional = false)
@@ -66,6 +65,9 @@ public class Usuarios implements Serializable {
     @JoinColumn(name = "pessoas_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoas pessoasId;
+    @JoinColumn(name = "funcoes_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Funcoes funcoesId;
 
     public Usuarios() {
     }
@@ -74,9 +76,8 @@ public class Usuarios implements Serializable {
         this.id = id;
     }
 
-    public Usuarios(Integer id, int funcoesId, String usuario, String senha, String situacao) {
+    public Usuarios(Integer id, String usuario, String senha, String situacao) {
         this.id = id;
-        this.funcoesId = funcoesId;
         this.usuario = usuario;
         this.senha = senha;
         this.situacao = situacao;
@@ -88,14 +89,6 @@ public class Usuarios implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getFuncoesId() {
-        return funcoesId;
-    }
-
-    public void setFuncoesId(int funcoesId) {
-        this.funcoesId = funcoesId;
     }
 
     public String getUsuario() {
@@ -171,6 +164,14 @@ public class Usuarios implements Serializable {
 
     public void setAuditoriaCollection(Collection<Auditoria> auditoriaCollection) {
         this.auditoriaCollection = auditoriaCollection;
+    }
+
+    public Funcoes getFuncoesId() {
+        return funcoesId;
+    }
+
+    public void setFuncoesId(Funcoes funcoesId) {
+        this.funcoesId = funcoesId;
     }
     
 }

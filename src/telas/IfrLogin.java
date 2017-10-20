@@ -9,9 +9,11 @@ import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
 import dao.EnderecoDAO;
+import dao.FuncoesDAO;
 import dao.PessoaDAO;
 import dao.UsuarioDAO;
 import entidades.Endereco;
+import entidades.Funcoes;
 import entidades.Pessoas;
 import entidades.Usuarios;
 import java.awt.Dimension;
@@ -156,15 +158,15 @@ public class IfrLogin extends javax.swing.JFrame {
 
         if (u.getSenha().equals(tfdSenha.getText())) {
             System.setProperty("usuario", u.getId()+"");
-            if (u.getFuncoesId() == 1) {
+            if (u.getFuncoesId().getId() == 1) {
                 JanelaPrincipal frmPrinc = new JanelaPrincipal();
                 frmPrinc.setVisible(true);
                 this.dispose();
-            } else if (u.getFuncoesId()== 2) {
+            } else if (u.getFuncoesId().getId()== 2) {
                 JanelaAtendente frmAtend = new JanelaAtendente();
                 frmAtend.setVisible(true);
                 this.dispose();
-            } else if (u.getFuncoesId() == 3) {
+            } else if (u.getFuncoesId().getId() == 3) {
                 JanelaCaminhoneiros frmCam = new JanelaCaminhoneiros();
                 frmCam.setVisible(true);
                 this.dispose();

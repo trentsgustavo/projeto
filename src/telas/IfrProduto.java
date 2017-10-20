@@ -14,7 +14,7 @@ import dao.TelasDAO;
 import entidades.Permissoes;
 import entidades.Produtos;
 import entidades.Usuarios;
-import entidades.Usuarios_has_permissoes;
+import entidades.UsuariosHasPermissoes;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;

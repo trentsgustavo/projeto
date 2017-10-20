@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Tainá Fiegenbaum
+ * @author gtren_000
  */
 @Entity
 @Table(name = "auditoria")

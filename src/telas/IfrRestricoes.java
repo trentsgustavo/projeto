@@ -8,9 +8,13 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
+import dao.PermissoesDAO;
+import dao.UsuarioDAO;
 import dao.Usuarios_has_PermissoesDAO;
+import entidades.Permissoes;
 import entidades.Telas;
-import entidades.Usuarios_has_permissoes;
+import entidades.Usuarios;
+import entidades.UsuariosHasPermissoes;
 import hibernate.HibernateUtil;
 import java.awt.Component;
 import java.awt.Container;
@@ -34,7 +38,7 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
     int status;
     int codigo = 0;
     Usuarios_has_PermissoesDAO upDAO;
-    Usuarios_has_permissoes up;
+    UsuariosHasPermissoes up;
     
     public IfrRestricoes() {
         initComponents();
@@ -203,13 +207,13 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         //controleAtualizacao();
         
-        Usuarios_has_permissoes up = new Usuarios_has_permissoes();
-        Usuarios_has_PermissoesDAO upDAO = new Usuarios_has_PermissoesDAO();
+        UsuariosHasPermissoes up = new UsuariosHasPermissoes();
+        DAO<UsuariosHasPermissoes> dao = new DAO<UsuariosHasPermissoes>();
+        Usuarios u = new UsuarioDAO().consultarID(Integer.parseInt(tfdUsuario.getText()));
+        Permissoes p = new PermissoesDAO().consultarID(Integer.parseInt(tfdPermissao.getText()));
         
-        DAO<Usuarios_has_permissoes> dao = new DAO<Usuarios_has_permissoes>();
-        
-        up.setPermissoesId(Integer.parseInt(tfdPermissao.getText()));
-        up.setUsuariosId(Integer.parseInt(tfdUsuario.getText()));
+        up.setPermissoesId(p);
+        up.setUsuariosId(u);
         
         dao.salvar(up);
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -245,11 +249,14 @@ public class IfrRestricoes extends javax.swing.JInternalFrame {
                     System.out.println("entrei");
                     statusCampos(true);
 
-                    DAO<Usuarios_has_permissoes> dao = new DAO<Usuarios_has_permissoes>();
-                    Usuarios_has_permissoes e = new Usuarios_has_permissoes();
-                    e.setPermissoesId(Integer.parseInt(tfdPermissao.getText()));
-                    e.setUsuariosId(Integer.parseInt(tfdUsuario.getText()));
-                    if (e.getPermissoesId()== 0 && e.getUsuariosId()==0) {
+                    DAO<UsuariosHasPermissoes> dao = new DAO<UsuariosHasPermissoes>();
+                    UsuariosHasPermissoes e = new UsuariosHasPermissoes();
+                    Usuarios u = new UsuarioDAO().consultarID(Integer.parseInt(tfdUsuario.getText()));
+                    Permissoes p = new PermissoesDAO().consultarID(Integer.parseInt(tfdPermissao.getText()));
+                    
+                    e.setPermissoesId(p);
+                    e.setUsuariosId(u);
+                    if (e.getPermissoesId()== null && e.getUsuariosId()== null) {
                         System.out.println("salvei");
                         dao.salvar(e);
                         new Usuarios_has_PermissoesDAO().popularTabela(tblRestricoes, title);

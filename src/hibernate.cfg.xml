@@ -8,7 +8,7 @@
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">postgres</property>
     <mapping class="entidades.Auditoria"/>
-    <mapping class="entidades.Usuarios_has_permissoes"/>
+    <mapping class="entidades.UsuariosHasPermissoes"/>
     <mapping class="entidades.Pessoas"/>
     <mapping class="entidades.Pedido"/>
     <mapping class="entidades.Permissoes"/>
