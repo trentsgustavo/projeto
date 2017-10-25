@@ -89,12 +89,12 @@ public Object validaUser(Object o) {
 
             for (Object o : resultado) {
                 Usuarios u = (Usuarios) o;
-                PessoaDAO pd = new PessoaDAO();
-                Pessoas p = pd.consultarID(u.getPessoasId().getId());
+                Pessoas p = new PessoaDAO().consultarID(u.getPessoasId().getId());
                 Funcoes f = new FuncoesDAO().consultarID(u.getFuncoesId().getId());
+                
                 dadosTabela[lin][0] = u.getId();
                 dadosTabela[lin][1] = u.getPessoasId().getNome()+" "+u.getPessoasId().getSobrenome();
-                dadosTabela[lin][2] = u.getFuncoesId().getId();
+                dadosTabela[lin][2] = u.getFuncoesId().getDescricao();
                 dadosTabela[lin][3] = u.getUsuario();
                 dadosTabela[lin][4] = u.getSenha();
                 dadosTabela[lin][5] = u.getSituacao();
