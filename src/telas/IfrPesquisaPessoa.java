@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class IfrPesquisaPessoa extends javax.swing.JDialog {
 
     IfrUsuario u;
+    IfrPedido p;
 
     /**
      * Creates new form DlgLocalizacao
@@ -30,6 +31,15 @@ public class IfrPesquisaPessoa extends javax.swing.JDialog {
     public IfrPesquisaPessoa(java.awt.Frame parent, boolean modal, IfrUsuario user) {
         initComponents();
         this.u = user;
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        PessoaDAO p;
+        p = new PessoaDAO();
+        p.popularTabela(tblPessoa, "");
+    }
+    public IfrPesquisaPessoa(java.awt.Frame parent, boolean modal, IfrPedido ped) {
+        initComponents();
+        this.p = ped;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         PessoaDAO p;

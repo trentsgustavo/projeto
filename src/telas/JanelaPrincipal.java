@@ -5,6 +5,7 @@
  */
 package telas;
 
+
 /**
  *
  * @author Tainá Fiegenbaum
@@ -36,6 +37,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         lblIcone = new javax.swing.JLabel();
@@ -46,17 +48,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jprodutos = new javax.swing.JMenuItem();
         jUsuario = new javax.swing.JMenuItem();
-        menuRelatorios = new javax.swing.JMenu();
-        ListCadastroPromocoes = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        listagem_produtos = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         menuSistema = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         menuItemSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        ListCadastroPromocoes = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        listagem_produtos = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,6 +89,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jMenu7.setText("jMenu7");
 
+        jMenuItem11.setText("jMenuItem11");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Transports - Gerenciamento de cargas");
 
@@ -108,7 +116,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(lblIcone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Cadastros");
@@ -160,41 +168,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        menuRelatorios.setText("Relatórios");
+        jMenu3.setText("Registrar");
 
-        ListCadastroPromocoes.setText("Listagem - Promoções");
-        ListCadastroPromocoes.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem9.setText("Pedido");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ListCadastroPromocoesActionPerformed(evt);
+                jMenuItem9ActionPerformed(evt);
             }
         });
-        menuRelatorios.add(ListCadastroPromocoes);
+        jMenu3.add(jMenuItem9);
 
-        jMenuItem3.setText("Relatório - Promoções - por nome");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem10.setText("Carga");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItem10ActionPerformed(evt);
             }
         });
-        menuRelatorios.add(jMenuItem3);
+        jMenu3.add(jMenuItem10);
 
-        listagem_produtos.setText("Listagem - Produtos");
-        listagem_produtos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listagem_produtosActionPerformed(evt);
-            }
-        });
-        menuRelatorios.add(listagem_produtos);
-
-        jMenuItem1.setText("Relatório - Produtos - por descrição");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        menuRelatorios.add(jMenuItem1);
-
-        jMenuBar1.add(menuRelatorios);
+        jMenuBar1.add(jMenu3);
 
         menuSistema.setText("Sistema");
 
@@ -234,7 +226,51 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem5);
 
+        jMenuItem12.setText("Enviar e-mail");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem12);
+
         jMenuBar1.add(jMenu2);
+
+        menuRelatorios.setText("Relatórios");
+
+        ListCadastroPromocoes.setText("Listagem - Promoções");
+        ListCadastroPromocoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListCadastroPromocoesActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(ListCadastroPromocoes);
+
+        jMenuItem3.setText("Relatório - Promoções - por nome");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(jMenuItem3);
+
+        listagem_produtos.setText("Listagem - Produtos");
+        listagem_produtos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listagem_produtosActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(listagem_produtos);
+
+        jMenuItem1.setText("Relatório - Produtos - por descrição");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(jMenuItem1);
+
+        jMenuBar1.add(menuRelatorios);
 
         setJMenuBar(jMenuBar1);
 
@@ -333,6 +369,21 @@ IfrPermissoes perm = new IfrPermissoes();
         config.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+     IfrPedido ped = new IfrPedido();
+        jDesktopPane1.add(ped);
+        ped.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+
+
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -342,6 +393,7 @@ IfrPermissoes perm = new IfrPermissoes();
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -349,6 +401,9 @@ IfrPermissoes perm = new IfrPermissoes();
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -356,6 +411,7 @@ IfrPermissoes perm = new IfrPermissoes();
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
