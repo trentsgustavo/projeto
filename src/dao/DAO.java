@@ -35,7 +35,6 @@ public class DAO<T> {
             System.out.println(session.save(object));
             transacion.commit();
             System.out.println("Deu certo");
-            AuditoriaDAO.salvarSalvou(object, us);
         } catch (HibernateException e) {
             transacion.rollback();
             e.printStackTrace();

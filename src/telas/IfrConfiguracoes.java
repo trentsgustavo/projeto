@@ -8,7 +8,6 @@ package telas;
 import apoio.ConexaoBD;
 import javax.swing.JOptionPane;
 import entidades.Auditoria;
-import dao.AuditoriaDAO;
 import apoio.templateTitulos;
 import dao.LogErroDAO;
 import entidades.Usuarios;
