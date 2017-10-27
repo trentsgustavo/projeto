@@ -5,6 +5,7 @@
  */
 package telas;
 
+import apoio.ConexaoBD;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
@@ -158,6 +159,7 @@ public class IfrLogin extends javax.swing.JFrame {
 
         if (u.getSenha().equals(tfdSenha.getText())) {
             System.setProperty("usuario", u.getId()+"");
+            desativaAuditoria();
             if (u.getFuncoesId().getId() == 1) {
                 JanelaPrincipal frmPrinc = new JanelaPrincipal();
                 frmPrinc.setVisible(true);
@@ -212,6 +214,17 @@ public class IfrLogin extends javax.swing.JFrame {
                 break;
             default:
                 break;
+        }
+    }
+    
+    public void desativaAuditoria(){
+        try {
+            String sql = "select fn_trigger_all(false)";
+
+            int retorno = ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
+
+        } catch (Exception e) {
+            System.out.println("Falha ao desligar Auditoria: " + e);
         }
     }
 

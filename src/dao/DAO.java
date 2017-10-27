@@ -32,6 +32,7 @@ public class DAO<T> {
         try {
             transacion = session.beginTransaction();
             session.save(object);
+            System.out.println(session.save(object));
             transacion.commit();
             System.out.println("Deu certo");
             AuditoriaDAO.salvarSalvou(object, us);

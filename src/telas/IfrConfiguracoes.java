@@ -5,10 +5,17 @@
  */
 package telas;
 
+import apoio.ConexaoBD;
 import javax.swing.JOptionPane;
 import entidades.Auditoria;
 import dao.AuditoriaDAO;
 import apoio.templateTitulos;
+import dao.LogErroDAO;
+import entidades.Usuarios;
+import hibernate.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -21,16 +28,6 @@ public class IfrConfiguracoes extends javax.swing.JInternalFrame {
      */
     public IfrConfiguracoes() {
         initComponents();
-        System.out.println("vai começar");
-        //Auditoria audi = new Auditoria();
-        AuditoriaDAO audDAO = new AuditoriaDAO();
-        //IfrConfiguracoes ifrConfig = new IfrConfiguracoes();
-
-        audDAO.consultaEstado(getChkAtivaAuditoria().isSelected());
-        //audi.getAtivaAuditoria();
-        //audDAO.
-
-        System.out.println("pegou do banco");
     }
 
     /**
@@ -42,24 +39,23 @@ public class IfrConfiguracoes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        chkAtivaAuditoria = new javax.swing.JCheckBox();
-        btnSalvar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
+        chkAuditoria = new javax.swing.JCheckBox();
 
         setClosable(true);
         setTitle("Configurações");
 
-        chkAtivaAuditoria.setSelected(true);
-        chkAtivaAuditoria.setText("Ativa auditoria");
-        chkAtivaAuditoria.addActionListener(new java.awt.event.ActionListener() {
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkAtivaAuditoriaActionPerformed(evt);
+                btnSairActionPerformed(evt);
             }
         });
 
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        chkAuditoria.setText("Auditoria Ativa");
+        chkAuditoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+                chkAuditoriaActionPerformed(evt);
             }
         });
 
@@ -68,112 +64,57 @@ public class IfrConfiguracoes extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(chkAtivaAuditoria)
-                .addContainerGap(293, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
+                .addContainerGap(333, Short.MAX_VALUE)
+                .addComponent(btnSair)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addComponent(chkAuditoria)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(chkAtivaAuditoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
+                .addGap(115, 115, 115)
+                .addComponent(chkAuditoria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(btnSair)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        controleAtualizacao();
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
-    private void chkAtivaAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAtivaAuditoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkAtivaAuditoriaActionPerformed
-//    public boolean AtivaAuditoria;
-//
-//    public void salvarAud(Auditoria Aud) {
-//        IfrConfiguracoes ifrConfig = new IfrConfiguracoes();
-//        Auditoria aud = new Auditoria();
-//        aud.setAtivaAuditoria(chkAtivaAuditoria.isSelected());
-//    }
+    private void chkAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAuditoriaActionPerformed
+        if(chkAuditoria.isSelected()){
+            try {
+            String sql = "select fn_trigger_all(true)";
 
-    public boolean chamaChkAtivaAuditoria() {
-        if (getChkAtivaAuditoria().isSelected()) {
-            return true;
+            int retorno = ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
+
+        } catch (Exception e) {
+            System.out.println("Falha ao ligar Auditoria: " + e);
         }
-        return false;
-    }
-
-    public boolean verificaEstado() {
-        //boolean chkAtivaAuditoriaB;
-        Auditoria audi = new Auditoria();
-        AuditoriaDAO audDAO = new AuditoriaDAO();
-        IfrConfiguracoes ifrConfig = new IfrConfiguracoes();
-//        //ifrConfig.setChkAtivaAuditoria(chkAtivaAuditoria.equals(ifrConfig.get));
-//        if (chkAtivaAuditoria.isSelected()) {
-//            audDAO.consultaEstado(true);
-//            audDAO.salvar(audi);
-//            System.out.println("ativou auditoria");
-//        } else {
-//            audDAO.consultaEstado(false);
-//            audDAO.salvar(audi);
-//            System.out.println("desativou auditoria");
-//}
-
-        if(audi.getAtivaauditoria()){
-            audi.setAtivaauditoria(true);
-            audDAO.salvar(audi);
-            System.out.println("ativou auditoria");
-            return true;
         }else{
-            audi.setAtivaauditoria(false);
-            audDAO.salvar(audi);
-            System.out.println("desativou auditoria");
-        }
-        return false;
-    }
+            try {
+            String sql = "select fn_trigger_all(false)";
 
-    private void controleAtualizacao() {
-        Auditoria aud = new Auditoria();
-        AuditoriaDAO audDAO = new AuditoriaDAO();
-        aud.setAtivaauditoria(getChkAtivaAuditoria().isSelected());
-        if (audDAO.salvar(aud)) {
-            JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
-        } else {
-            JOptionPane.showMessageDialog(null, templateTitulos.getMsgOperacaoErro());
+            int retorno = ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
+
+        } catch (Exception e) {
+            System.out.println("Falha ao desligar Auditoria: " + e);
         }
-    }
+        }
+    }//GEN-LAST:event_chkAuditoriaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalvar;
-    private javax.swing.JCheckBox chkAtivaAuditoria;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JCheckBox chkAuditoria;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the chkAtivaAuditoria
-     */
-    public javax.swing.JCheckBox getChkAtivaAuditoria() {
-        return chkAtivaAuditoria;
-    }
-
-    /**
-     * @param chkAtivaAuditoria the chkAtivaAuditoria to set
-     */
-    public void setChkAtivaAuditoria(javax.swing.JCheckBox chkAtivaAuditoria) {
-        this.chkAtivaAuditoria = chkAtivaAuditoria;
-    }
-
-//    public boolean isAtivaAuditoria() {
-//        return AtivaAuditoria;
-//    }
-//
-//    public void setAtivaAuditoria(boolean AtivaAuditoria) {
-//        this.AtivaAuditoria = AtivaAuditoria;
-//    }
+    
 }
