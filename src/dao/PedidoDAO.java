@@ -39,7 +39,7 @@ public class PedidoDAO {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[5];
+        Object[] cabecalho = new Object[6];
         cabecalho[0] = "Id";
         cabecalho[1] = "Usuário ID";
         cabecalho[2] = "Pessoa ID";
@@ -58,14 +58,14 @@ public class PedidoDAO {
             resultado = q.list();
             System.out.println("tamanho:" + resultado.size());
 
-            dadosTabela = new Object[resultado.size()][5];
+            dadosTabela = new Object[resultado.size()][6];
 
             for (Object o : resultado) {
                 Pedido pes = (Pedido) o;
                 PedidoDAO pd = new PedidoDAO();
                 dadosTabela[lin][0] = pes.getId();
                 dadosTabela[lin][1] = pes.getUsuariosId();
-                dadosTabela[lin][2] = pes.getPessoasId();
+                dadosTabela[lin][2] = pes.getPessoasId().getNome();
                 dadosTabela[lin][3] = pes.getData();
                 dadosTabela[lin][4] = pes.getHora();
                 dadosTabela[lin][5] = pes.getSituacao();

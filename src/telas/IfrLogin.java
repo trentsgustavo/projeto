@@ -61,12 +61,21 @@ public class IfrLogin extends javax.swing.JFrame {
 
         jLabel1.setText("* Usuário:");
 
+        tfdUsuario.setText("admin");
+
         jLabel2.setText("* Senha:");
 
         btnLogin.setText("Acessar");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
+            }
+        });
+
+        tfdSenha.setText("123");
+        tfdSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfdSenhaActionPerformed(evt);
             }
         });
 
@@ -181,6 +190,10 @@ public class IfrLogin extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void tfdSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdSenhaActionPerformed
 
     private void controleAtualizacao() {
         UsuarioDAO ud = new UsuarioDAO();

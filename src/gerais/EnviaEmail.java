@@ -12,9 +12,9 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.MultiPartEmail;
 import org.apache.commons.mail.SimpleEmail;
-public class CommonsMail {
-	public CommonsMail() throws EmailException, MalformedURLException {
-		enviaEmailSimples();
+public class EnviaEmail {
+	public EnviaEmail() throws EmailException, MalformedURLException {
+		//enviaEmailSimples();
 		enviaEmailComAnexo();
 	}
 	/**
@@ -56,8 +56,8 @@ public class CommonsMail {
 		email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail
 		email.addTo("taina.fiegenbaum@universo.univates.br"); //destinatário
 		email.setFrom("tainafiegenbaum@gmail.com"); // remetente
-		email.setSubject("teste"); // assunto do e-mail
-		email.setMsg("teste abc123"); //conteudo do e-mail
+		email.setSubject("Aula PAA"); // assunto do e-mail
+		email.setMsg("Teste envio de e-mail de programação de aplicações!"); //conteudo do e-mail
 		email.setAuthentication("tainafiegenbaum@gmail.com", "20ta02ina");
 		email.setSmtpPort(465);
 		email.setSSL(true);
@@ -68,39 +68,8 @@ public class CommonsMail {
 		// envia o email
 		email.send();
 	}
-	/**
-	 * Envia email no formato HTML
-	 * @throws EmailException 
-	 * @throws MalformedURLException 
-	 */
-        /**
-	public void enviaEmailFormatoHtml() throws EmailException, MalformedURLException {
-		HtmlEmail email = new HtmlEmail();
-		// adiciona uma imagem ao corpo da mensagem e retorna seu id
-		URL url = new URL(&quot;http://www.apache.org/images/asf_logo_wide.gif&quot;);
-		String cid = email.embed(url, &quot;Apache logo&quot;);	
-		// configura a mensagem para o formato HTML
-		email.setHtmlMsg(&quot;&lt;html&gt;Logo do Apache - <img >&lt;/html&gt;&quot;);
-		// configure uma mensagem alternativa caso o servidor não suporte HTML
-		email.setTextMsg(&quot;Seu servidor de e-mail não suporta mensagem HTML&quot;);
-		email.setHostName(&quot;smtp.gmail.com&quot;); // o servidor SMTP para envio do e-mail
-		email.addTo(&quot;teste@gmail.com&quot;, &quot;Guilherme&quot;); //destinatário
-		email.setFrom(&quot;teste@gmail.com&quot;, &quot;Eu&quot;); // remetente
-		email.setSubject(&quot;Teste -&gt; Html Email&quot;); // assunto do e-mail
-		email.setMsg(&quot;Teste de Email HTML utilizando commons-email&quot;); //conteudo do e-mail
-		email.setAuthentication(&quot;teste&quot;, &quot;xxxxx&quot;);
-		email.setSmtpPort(465);
-		email.setSSL(true);
-		email.setTLS(true);
-		// envia email
-		email.send();
-	}*/
-	/**
-	 * @param args
-	 * @throws EmailException 
-	 * @throws MalformedURLException 
-	 */
+	
 	public static void main(String[] args) throws EmailException, MalformedURLException {
-		new CommonsMail();
+		new EnviaEmail();
 	}
 }

@@ -5,7 +5,6 @@
  */
 package telas;
 
-import dao.EnderecoDAO;
 import dao.PessoaDAO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -14,30 +13,21 @@ import javax.swing.JOptionPane;
 /**
  * @author Tainá Fiegenbaum
  */
-public class IfrPesquisaPessoa extends javax.swing.JDialog {
+public class IfrPesquisaPessoa2 extends javax.swing.JDialog {
 
-    IfrUsuario u;
     IfrPedido p;
 
     /**
      * Creates new form DlgLocalizacao
      *
      */
-    public IfrPesquisaPessoa(java.awt.Frame parent, boolean modal) {
+    public IfrPesquisaPessoa2(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public IfrPesquisaPessoa(java.awt.Frame parent, boolean modal, IfrUsuario user) {
-        initComponents();
-        this.u = user;
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        PessoaDAO p;
-        p = new PessoaDAO();
-        p.popularTabela(tblPessoa, "");
-    }
-    public IfrPesquisaPessoa(java.awt.Frame parent, boolean modal, IfrPedido ped) {
+   
+    public IfrPesquisaPessoa2(java.awt.Frame parent, boolean modal, IfrPedido ped) {
         initComponents();
         this.p = ped;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -111,7 +101,7 @@ public class IfrPesquisaPessoa extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSelecionarLocalizacao)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(tbnOk)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnFechar))
@@ -141,7 +131,7 @@ public class IfrPesquisaPessoa extends javax.swing.JDialog {
 
     private void tbnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnOkActionPerformed
         if (tblPessoa.getSelectedRowCount() == 1) {
-            u.pegaIdDlg(String.valueOf(tblPessoa.getValueAt(tblPessoa.getSelectedRow(), 0)));
+            p.pegaIdDlg2(String.valueOf(tblPessoa.getValueAt(tblPessoa.getSelectedRow(), 0)));
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Você deve primeiro selecionar uma Pessoa!");
@@ -165,14 +155,62 @@ public class IfrPesquisaPessoa extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IfrPesquisaPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrPesquisaPessoa2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -193,7 +231,7 @@ public class IfrPesquisaPessoa extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                IfrPesquisaPessoa dialog = new IfrPesquisaPessoa(new javax.swing.JFrame(), true);
+                IfrPesquisaPessoa2 dialog = new IfrPesquisaPessoa2(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

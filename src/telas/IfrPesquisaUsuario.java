@@ -58,7 +58,7 @@ public class IfrPesquisaUsuario extends javax.swing.JDialog {
         btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pesquisar Cidade");
+        setTitle("Pesquisar Usuário");
 
         lblSelecionarLocalizacao.setText("Selecione o Usuário:");
 
@@ -83,7 +83,7 @@ public class IfrPesquisaUsuario extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblUsuario);
 
-        tbnOk.setText("Ok");
+        tbnOk.setText("Selecionar");
         tbnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbnOkActionPerformed(evt);
@@ -126,6 +126,8 @@ public class IfrPesquisaUsuario extends javax.swing.JDialog {
                     .addComponent(btnFechar))
                 .addGap(47, 47, 47))
         );
+
+        getAccessibleContext().setAccessibleName("Pesquisar Usuário");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -8,11 +8,20 @@ package telas;
 import apoio.TratarCampos;
 import apoio.templateTitulos;
 import dao.DAO;
-import dao.ProdutosDAO;
-import entidades.Produtos;
+import dao.PedidoDAO;
+import dao.PessoaDAO;
+import dao.UsuarioDAO;
+import entidades.Pedido;
+import entidades.Pessoas;
+import entidades.Usuarios;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import apoio.Calendario;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -22,22 +31,29 @@ public class IfrPedido extends javax.swing.JInternalFrame {
     
     int codigo = 0;
     int status;
-    ProdutosDAO pDAO;
-    Produtos p;
+    PedidoDAO pDAO;
+    Pedido p;
+    Calendario c = new Calendario();
     
     public IfrPedido() {
+        System.out.println(c.obterDataAtualDMA());
         setTitle("Cadastro de Pedidos");
         initComponents();
         this.setSize(800, 500);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         btnSalvar.setText(templateTitulos.getBtnNovo());
-        new ProdutosDAO().popularTabela(tblProdutos, title);
+        new PedidoDAO().popularTabela(tblPedido, title);
         statusCampos(false);
         //btnCancelar.setEnabled(false);
         tfdId.setVisible(false);
         btnCancelar.setEnabled(false);
         new DAO().definirPermissoes(this);
+        //System.out.println(c.obterHoraAtual());
+       tfdData.setText(c.obterDataAtualDMA());
+       tfdHora.setText(c.obterHoraAtual());
+       jProdutos.setEnabled(false);
+       
     }
     
     @SuppressWarnings("unchecked")
@@ -71,9 +87,10 @@ public class IfrPedido extends javax.swing.JInternalFrame {
         btnExcluir1 = new javax.swing.JButton();
         btnTela = new javax.swing.JButton();
         btnTela1 = new javax.swing.JButton();
+        btnSalvar1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblProdutos = new javax.swing.JTable();
+        tblPedido = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnSair2 = new javax.swing.JButton();
@@ -194,6 +211,17 @@ public class IfrPedido extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSalvar1.setText("Salvar");
+        btnSalvar1.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnSalvar1.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnSalvar1.setName("btnCancelar"); // NOI18N
+        btnSalvar1.setPreferredSize(new java.awt.Dimension(90, 25));
+        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -225,13 +253,16 @@ public class IfrPedido extends javax.swing.JInternalFrame {
                     .addComponent(tfdId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnExcluir1)
+                .addGap(150, 150, 150))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE)
                         .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,11 +278,10 @@ public class IfrPedido extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnExcluir1)
-                .addGap(150, 150, 150))
+                        .addGap(49, 49, 49))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +306,9 @@ public class IfrPedido extends javax.swing.JInternalFrame {
                         .addComponent(btnTela, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnTela1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(67, 67, 67)
+                .addGap(24, 24, 24)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,15 +325,15 @@ public class IfrPedido extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
         abaManutencao.addTab("Manutenção", jPanel1);
 
-        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tblPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -312,7 +344,7 @@ public class IfrPedido extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblProdutos);
+        jScrollPane2.setViewportView(tblPedido);
 
         btnEditar.setText("Editar");
         btnEditar.setMaximumSize(new java.awt.Dimension(90, 25));
@@ -421,10 +453,10 @@ public class IfrPedido extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma exclusão?");
-        ProdutosDAO pd = new ProdutosDAO();
-        Produtos p = new Produtos();
+        PedidoDAO pd = new PedidoDAO();
+        Pedido p = new Pedido();
         DAO d = new DAO();
-        Object obj = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        Object obj = tblPedido.getValueAt(tblPedido.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         p = pd.consultarID(Integer.parseInt(str));
         if(confirma == JOptionPane.YES_OPTION){
@@ -433,24 +465,35 @@ public class IfrPedido extends javax.swing.JInternalFrame {
         }else{
         JOptionPane.showMessageDialog(null, "Erro ao excluir registro");    
         }
-        new ProdutosDAO().popularTabela(tblProdutos, title);
+        new PedidoDAO().popularTabela(tblPedido, title);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        ProdutosDAO pd = new ProdutosDAO();
-        Produtos p = new Produtos();
+        PedidoDAO pd = new PedidoDAO();
+        Pedido p = new Pedido();
+        Pessoas pe = new Pessoas();
+        UsuarioDAO udao = new UsuarioDAO();
         DAO d = new DAO();
-        Object obj = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        Object obj = tblPedido.getValueAt(tblPedido.getSelectedRow(), 0);
         String str = String.valueOf(obj);
         p = pd.consultarID(Integer.parseInt(str));
         tfdId.setText(p.getId()+"");
-        tfdUsuario.setText(p.getDescricao());
-        tfdPessoa.setText(p.getPeso()+"");
+        tfdUsuario.setText(Integer.toString(p.getId()));
+        tfdPessoa.setText(Integer.toString(p.getId()));
+        //tfdData.setText(p.getDatatime());
         abaManutencao.setSelectedIndex(0);
         btnSalvar.setText(templateTitulos.getBtnAtualizar());
-        new ProdutosDAO().popularTabela(tblProdutos, title);
+        new PedidoDAO().popularTabela(tblPedido, title);
     }//GEN-LAST:event_btnEditarActionPerformed
-
+   void pegaIdDlg(String codigo) {
+        tfdUsuario.setText(codigo);
+        System.out.println(codigo);
+    }
+    
+    void pegaIdDlg2(String codigo) {
+        tfdPessoa.setText(codigo);
+        System.out.println(codigo);
+    }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         statusCampos(false);
         btnCancelar.setText(templateTitulos.getBtnCancelar());
@@ -458,7 +501,7 @@ public class IfrPedido extends javax.swing.JInternalFrame {
         TratarCampos.limparCampos(jPanel1);
         TratarCampos.setaBorda(jPanel1, false);
         btnSalvar.setText(templateTitulos.getBtnNovo());
-        new ProdutosDAO().popularTabela(tblProdutos, title);
+        new PedidoDAO().popularTabela(tblPedido, title);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
@@ -522,16 +565,20 @@ public class IfrPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluir1ActionPerformed
 
     private void btnTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaActionPerformed
-        IfrPesquisaUsuario searchUsu = new IfrPesquisaUsuario(null, true, this);
+        IfrPesquisaUsuario2 searchUsu = new IfrPesquisaUsuario2(null, true, this);
         searchUsu.setLocationRelativeTo(this);
         searchUsu.setVisible(true);
     }//GEN-LAST:event_btnTelaActionPerformed
 
     private void btnTela1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTela1ActionPerformed
-        IfrPesquisaPessoa searchPes = new IfrPesquisaPessoa(null, true, this);
+        IfrPesquisaPessoa2 searchPes = new IfrPesquisaPessoa2(null, true, this);
         searchPes.setLocationRelativeTo(this);
         searchPes.setVisible(true);
     }//GEN-LAST:event_btnTela1ActionPerformed
+
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvar1ActionPerformed
     private void statusCampos(boolean status) {
         tfdUsuario.setEnabled(status);
         tfdPessoa.setEnabled(status);
@@ -545,6 +592,8 @@ public class IfrPedido extends javax.swing.JInternalFrame {
                 btnCancelar.setEnabled(true);
                 TratarCampos.trataObrigatorios(tfdUsuario);
                 TratarCampos.trataObrigatorios(tfdPessoa);
+                TratarCampos.trataObrigatorios(tfdData);
+                TratarCampos.trataObrigatorios(tfdHora);
                 status++;
                 tfdUsuario.requestFocus();
                 
@@ -555,18 +604,28 @@ public class IfrPedido extends javax.swing.JInternalFrame {
                     System.out.println("entrei");
                     statusCampos(true);
                     
-                    DAO<Produtos> dao = new DAO<Produtos>();
-                    Produtos pro = new Produtos();
-                    pro.setDescricao(tfdUsuario.getText());
-                    pro.setPeso(Double.parseDouble(tfdPessoa.getText()));
-                    pro.setId(Integer.parseInt(tfdId.getText()));
+                    DAO<Pedido> dao = new DAO<Pedido>();
+                    Pedido pro = new Pedido();
+                    Usuarios u = new Usuarios();
+                    UsuarioDAO uDAO = new UsuarioDAO();
+                    Pessoas p = new Pessoas ();
+                    PessoaDAO pDAO = new PessoaDAO();
+                    u = uDAO.consultarID(Integer.parseInt(tfdUsuario.getText()));
+                    pro.setUsuariosId(u.getId());
+                    p = pDAO.consultarID(Integer.parseInt(tfdPessoa.getText()));
+                    pro.setPessoasId(p);
+                    Date data = new Date(System.currentTimeMillis());
+                   pro.setData(data);
+                   Date hoje = GregorianCalendar.getInstance().getTime();
+                   pro.setHora(hoje);
                     pro.setSituacao("a");
+                    pro.setId(Integer.parseInt(tfdId.getText()));
                     if(pro.getId()==0){
                         dao.salvar(pro);
-                        new ProdutosDAO().popularTabela(tblProdutos, title);
+                        new PedidoDAO().popularTabela(tblPedido, title);
                     }else{
                         dao.atualizar(pro);
-                        new ProdutosDAO().popularTabela(tblProdutos, title);
+                        new PedidoDAO().popularTabela(tblPedido, title);
                     }
                     System.out.println("cheguei aqui");
                     JOptionPane.showMessageDialog(null, templateTitulos.getMsgOpSalvo());
@@ -593,6 +652,7 @@ public class IfrPedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSair1;
     private javax.swing.JButton btnSair2;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvar1;
     private javax.swing.JButton btnSalvar2;
     private javax.swing.JButton btnTela;
     private javax.swing.JButton btnTela1;
@@ -612,7 +672,7 @@ public class IfrPedido extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable tabela;
-    private javax.swing.JTable tblProdutos;
+    private javax.swing.JTable tblPedido;
     private javax.swing.JFormattedTextField tfdData;
     private javax.swing.JTextField tfdHora;
     private javax.swing.JLabel tfdId;

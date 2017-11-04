@@ -5,6 +5,12 @@
  */
 package telas;
 
+import gerais.EnviaEmail;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -53,11 +59,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         menuSistema = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         menuItemSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         ListCadastroPromocoes = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -198,6 +204,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         menuSistema.add(jMenuItem8);
 
+        jMenuItem12.setText("Enviar e-mail");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        menuSistema.add(jMenuItem12);
+
         menuItemSair.setText("Sair");
         menuItemSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,14 +239,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem5);
-
-        jMenuItem12.setText("Enviar e-mail");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem12);
 
         jMenuBar1.add(jMenu2);
 
@@ -322,7 +328,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-IfrPermissoes perm = new IfrPermissoes();
+        IfrPermissoes perm = new IfrPermissoes();
         jDesktopPane1.add(perm);
         perm.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
@@ -374,12 +380,21 @@ IfrPermissoes perm = new IfrPermissoes();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-     IfrPedido ped = new IfrPedido();
+        IfrPedido ped = new IfrPedido();
         jDesktopPane1.add(ped);
         ped.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        try {
+            EnviaEmail ee = new EnviaEmail();
+            ee.enviaEmailComAnexo();
+            JOptionPane.showMessageDialog(null, "E-mail enviado com sucesso!");
+        } catch (EmailException ex) {
+            Logger.getLogger(JanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(JanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_jMenuItem12ActionPerformed

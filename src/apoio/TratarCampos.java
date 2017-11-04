@@ -57,16 +57,16 @@ public class TratarCampos {
                     //break;
                 }
             }
-            if (c[i] instanceof JComboBox) {
-                JComboBox cb = (JComboBox) c[i];
-                if (cb.getSelectedIndex() == 0) {
-                    JOptionPane.showMessageDialog(container, "Existem informações que devem ser selecionadas \n"
-                            + "Verifique o campo " + cb.getName());
-                    return false;
-                }
-            }
-        }
-        return true;
+          //  if (c[i] instanceof JComboBox) {
+             //   JComboBox cb = (JComboBox) c[i];
+             //   if (cb.getSelectedIndex() == 0) {
+                //    JOptionPane.showMessageDialog(container, "Existem informações que devem ser selecionadas \n"
+              //              + "Verifique o campo " + cb.getName());
+               //     return false;
+               // }
+           // }
+       }
+       return true;
     }
 
     public static void trataObrigatorios(JTextField campo) {
