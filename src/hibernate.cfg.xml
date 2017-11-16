@@ -11,6 +11,7 @@
     <mapping class="entidades.UsuariosHasPermissoes"/>
     <mapping class="entidades.Pessoas"/>
     <mapping class="entidades.Pedido"/>
+    <mapping class="entidades.PedidoProdutos"/>
     <mapping class="entidades.Permissoes"/>
     <mapping class="entidades.Logerros"/>
     <mapping class="entidades.Caminhao"/>

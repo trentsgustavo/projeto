@@ -37,6 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Carga.findByNfe", query = "SELECT c FROM Carga c WHERE c.nfe = :nfe")})
 public class Carga implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "pesorestante")
+    private double pesorestante;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -145,6 +149,14 @@ public class Carga implements Serializable {
     @Override
     public String toString() {
         return "entidades.Carga[ id=" + id + " ]";
+    }
+
+    public double getPesorestante() {
+        return pesorestante;
+    }
+
+    public void setPesorestante(double pesorestante) {
+        this.pesorestante = pesorestante;
     }
     
 }
