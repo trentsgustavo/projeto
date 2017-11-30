@@ -12,10 +12,11 @@ import javafx.scene.chart.PieChart;
  * @author Tainá Fiegenbaum
  */
 
+
 public class Main {
 
 	   public static void main(String[] args) {
-	          Grafico2 demo = new Grafico2();
+	          GraficoCerto demo = new GraficoCerto("Comparação", "Qual sistema operacional você está usando?");
 	          demo.pack();
 	          demo.setVisible(true);
 	      }

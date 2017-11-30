@@ -41,13 +41,13 @@ public class EnviaEmail {
 	public void enviaEmailComAnexo() throws EmailException{
 		// cria o anexo 1.
 		EmailAttachment anexo1 = new EmailAttachment();
-		anexo1.setPath("C:/Users/Tainá Fiegenbaum/Documents/UNIVATES/PAA/projeto/src/icons/transp.jpg"); //caminho do arquivo (RAIZ_PROJETO/teste/teste.txt)
+		anexo1.setPath("C:/Users/Tainá Fiegenbaum/Documents/UNIVATES/PAA/paa/projeto/src/icons/transp.jpg"); //caminho do arquivo (RAIZ_PROJETO/teste/teste.txt)
 		anexo1.setDisposition(EmailAttachment.ATTACHMENT);
 		anexo1.setDescription("bla");
 		anexo1.setName("dajfhgajds");		
 		// cria o anexo 2.
 		EmailAttachment anexo2 = new EmailAttachment();
-		anexo2.setPath("C:/Users/Tainá Fiegenbaum/Documents/UNIVATES/PAA/projeto/src/icons/lupa.jpg"); //caminho do arquivo (RAIZ_PROJETO/teste/teste2.jsp)
+		anexo2.setPath("C:/Users/Tainá Fiegenbaum/Documents/UNIVATES/PAA/paa/projeto/src/icons/lupa.jpg"); //caminho do arquivo (RAIZ_PROJETO/teste/teste2.jsp)
 		anexo2.setDisposition(EmailAttachment.ATTACHMENT);
 		anexo2.setDescription("teste2");
 		anexo2.setName("teste2");		

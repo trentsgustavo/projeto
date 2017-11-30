@@ -53,7 +53,7 @@ public class Grafico2 extends JFrame {
       
         
       Statement statement = connect.createStatement( );
-      ResultSet resultSet = statement.executeQuery("p.descricao as produtos, count(p.id) as pedidos from produtos p, pedido pe, pedido_produtos pp \n" +
+      ResultSet resultSet = statement.executeQuery("select p.descricao as produtos, count(p.id) as pedidos from produtos p, pedido pe, pedido_produtos pp \n" +
 "where pp.pedido_id = pe.id and pp.produtos_id= p.id\n" +
 "group by p.descricao" );
       DefaultPieDataset dataset = new DefaultPieDataset( );
@@ -62,23 +62,25 @@ public class Grafico2 extends JFrame {
          dataset.setValue( 
          resultSet.getString("produtos" ) ,
          Double.parseDouble( resultSet.getString( "pedidos" )));
-      }
-      }
-      
-     private JFreeChart createChart(PieDataset dataset, String title) {
- 
-		JFreeChart chart = ChartFactory.createPieChart3D(title, // título / gráfico 
-				dataset, // dados 
-				true, // include lenda
-				true, false);
- 
-		PiePlot3D plot = (PiePlot3D) chart.getPlot();
-		plot.setStartAngle(290);
-		plot.setDirection(Rotation.CLOCKWISE);
-		plot.setForegroundAlpha(0.5f);
-		return chart;
- 
-	}
-
+         
+             JFreeChart chart = ChartFactory.createPieChart3D( 
+         "Mobile Sales" ,  // chart title                   
+         dataset ,         // data 
+         true ,            // include legend                   
+         true, 
+         false);
+             
+    
+     final PiePlot3D plot = ( PiePlot3D ) chart.getPlot( );             
+      plot.setStartAngle( 270 );             
+      plot.setForegroundAlpha( 0.60f );             
+      plot.setInteriorGap( 0.02 );             
+      int width = 640; /* Width of the image */             
+      int height = 480; /* Height of the image */                             
+      File pieChart3D = new File( "pie_Chart3D.jpeg" );                           
+      ChartUtilities.saveChartAsJPEG( pieChart3D , chart , width , height );   
+   }
+   }
+   
 
 }
