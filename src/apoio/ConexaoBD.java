@@ -23,9 +23,9 @@ public class ConexaoBD {
             // Carrega informações do arquivo de propriedades
             Properties prop = new Properties();
             prop.load(new FileInputStream("db.properties"));
-            String dbdriver = prop.getProperty("db.driver");
-            String dburl = prop.getProperty("db.url");
-            String dbuser = prop.getProperty("db.user");
+            String dbdriver = prop.getProperty("org.postgresql.Driver");
+            String dburl = prop.getProperty("jdbc:postgresql://localhost:5432/Transports");
+            String dbuser = prop.getProperty("postgres");
             String dbsenha = "postgres";
 
             // Carrega Driver do Banco de Dados

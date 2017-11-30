@@ -5,12 +5,18 @@
  */
 package dao;
 
+import apoio.ConexaoBD;
+import entidades.Grafico;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import entidades.PedidoProdutos;
 import hibernate.HibernateUtil;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.table.TableColumn;
 import org.hibernate.HibernateException;
 
@@ -64,7 +70,7 @@ public class PedidoProdutoDAO {
                 dadosTabela[lin][1] = pp.getPedidoId().getId();
                 dadosTabela[lin][2] = pp.getProdutosId().getDescricao();
                 dadosTabela[lin][3] = pp.getPeso();
-       
+
                 lin++;
             }
 
@@ -134,6 +140,33 @@ public class PedidoProdutoDAO {
             sessao.close();
         }
         return s;
+    }
+
+    public ArrayList<Object> consultarPedidoProdutos() {
+        ArrayList<Object> Grafico = new ArrayList<>();
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "select p.descricao as produtos, count(p.id) as pedidos from produtos p, pedido pe, pedido_produtos pp"
+                    + "where pp.pedido_id = pe.id and pp.produtos_id= p.id"
+                    + "group by p.descricao";
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                Grafico g = new Grafico();
+                g.setProdutos(resultado.getString("produtos"));
+                g.setQuantPedidos(resultado.getInt("pedidos"));
+
+                Grafico.add(g);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao consultar pedidos por produtos: " + e);
+        }
+
+        return consultarPedidoProdutos();
+                
     }
 
 }

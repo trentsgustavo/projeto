@@ -61,7 +61,7 @@ public class IfrLogin extends javax.swing.JFrame {
 
         jLabel1.setText("* Usuário:");
 
-        tfdUsuario.setText("admin");
+        tfdUsuario.setText("jbala");
 
         jLabel2.setText("* Senha:");
 
@@ -164,7 +164,7 @@ public class IfrLogin extends javax.swing.JFrame {
 
         u = ud.consultarLogin(tfdUsuario.getText());
         System.out.println("TextField: " + tfdUsuario.getText());
-        System.out.println("Objeto: " + u.getUsuario());
+//        System.out.println("Objeto: " + u.getUsuario());
 
         if (u.getSenha().equals(tfdSenha.getText())) {
             System.setProperty("usuario", u.getId()+"");

@@ -108,7 +108,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfdUsuario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="admin"/>
+            <Property name="text" type="java.lang.String" value="jbala"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
